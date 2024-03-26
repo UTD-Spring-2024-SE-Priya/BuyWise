@@ -19,7 +19,6 @@ router.post("/users", async (req, res) => {
     // Define the user object with the provided data
     const newUser = {
       username: req.body.username,
-      email: req.body.email,
       password: req.body.password,
       groups: req.body.groups
         // Initialize groups as an empty array
@@ -31,7 +30,9 @@ router.post("/users", async (req, res) => {
     
     // Respond with the inserted user object
     res.status(201).json({ message: "User added successfully", user: newUser });
+    console.log("added user");
   } catch (error) {
+    console.log("did not add user");
     console.error("Error adding user:", error);
     res.status(500).json({ message: "Internal server error" });
   }
@@ -41,7 +42,6 @@ router.get("/username/:username", async (req, res) => {
   let collection = db.collection("allUsers");
   let query = { username: req.params.username};
   let result = await collection.findOne(query);
-  console.log(result);
   if (!result) {
     res.status(404).send("Not found"); // Send a bad request status if username not found
   } else {
@@ -49,14 +49,22 @@ router.get("/username/:username", async (req, res) => {
   }
 });
 
-// Route to check if an email is already registered
-router.get("/email/:email", async (req, res) => {
-  let collection = db.collection("allUsers");
-  let query = { email: req.params.email};
-  let result = await collection.findOne(query);
 
-  if (!result) res.send("Not found").status(404);
-  else res.send(result).status(200);
+
+// Route to delete user
+router.delete("/delete/:username", async (req, res) => {
+    let collection = db.collection("allUsers");
+    let query = { username : req.params.username };
+    let result = await collection.deleteOne(query);
+    if (result.deletedCount === 0){
+      res.send(result).status(404);
+      console.log("No documents matched the query. Deleted 0 documents.");
+    } else {
+      res.send(result).status(200);
+      console.log("Successfully deleted one document.");
+    }
+  
 });
+
 
 export default router;
