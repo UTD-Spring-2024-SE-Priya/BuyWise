@@ -4,9 +4,13 @@ const validateUsername = async (username) => {
     if (!username || username.trim() === '') {
       throw new Error("Username cannot be empty");
     }
-    // Check if username contains spaces
-    if (username.includes(' ')) {
-      throw new Error("Username cannot contain spaces");
+    
+    const usernamePattern = /^(?=.*[a-zA-Z])(?=.*\d)[^\s]{5,}$/;
+
+
+    if(!usernamePattern.test(username)){
+      throw new Error("Username must be 5+ characters, contain at least one number, one letter, and no spaces");
+
     }
 
     try {
@@ -33,14 +37,18 @@ const validateUsername = async (username) => {
 
   // Function to validate the password and confirm password
   const validatePassword = (password, confirmPassword) => {
-    // Check if password and confirmPassword match
-    if (password !== confirmPassword) {
-      throw new Error("Passwords do not match");
+
+    if (!password || password.trim() === '') {
+      throw new Error("Password cannot be empty");
     }
-    // Check if password meets criteria (8-14 characters, one number, one uppercase, one lowercase, one special character, no spaces)
+
     const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,14}$/;
     if (!passwordPattern.test(password)) {
       throw new Error("Password must be 8-14 characters, contain at least one number, one uppercase letter, one lowercase letter, one special character, and no spaces");
+    }
+
+    if (password !== confirmPassword) {
+      throw new Error("Passwords do not match");
     }
   };
   
@@ -50,7 +58,7 @@ const validateUsername = async (username) => {
       await validateUsername(username);
       validatePassword(password, confirmPassword);
       
-      addUser(username , password);
+      await addUser(username , password);
 
 
     } catch (error) {
