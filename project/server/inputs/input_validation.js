@@ -16,7 +16,7 @@ const validateUsername = async (username) => {
         }
     } catch (error) {
         if (error instanceof TypeError) {
-            // Network error or failed to fetch
+            // Network error/failed to fetch
             console.error("Network error:", error);
             throw new Error("Failed to fetch username information");
         } else if (error instanceof Error) {
@@ -30,32 +30,7 @@ const validateUsername = async (username) => {
     
   };
   
-  // Function to validate the email
-  const validateEmail = async (email) => {
-    // Check if email is null or empty
-    if (!email || email.trim() === '') {
-      throw new Error("Email cannot be empty");
-    }
-    // Check if email contains spaces
-    if (email.includes(' ')) {
-      throw new Error("Email cannot contain spaces");
-    }
-    // Check if email follows valid email conventions (basic check)
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      throw new Error("Invalid email format");
-    }
-    try {
-        const response = await fetch(`http://localhost:5050/username/${email}`);
-        if (response.status == 200){
-            throw new Error("email exists in the database!");
-        }
-      } catch (error) {
-        console.error("email exists:", error);
-        throw error;
-      }
-  };
-  
+
   // Function to validate the password and confirm password
   const validatePassword = (password, confirmPassword) => {
     // Check if password and confirmPassword match
@@ -70,24 +45,27 @@ const validateUsername = async (username) => {
   };
   
   // Function to validate username, email, password, and confirm password
-  export const validateUserRegistration = async (username, email, password, confirmPassword) => {
+  export const validateUserRegistration = async (username, password, confirmPassword) => {
     try {
       await validateUsername(username);
-      await validateEmail(email);
       validatePassword(password, confirmPassword);
       
-      addUser(username , email , password);
+      addUser(username , password);
+
 
     } catch (error) {
       throw error;
     }
   };
 
-  async function addUser(username , email , password){
+  async function addUser(username , password){
     const userData = {
         username : username,
-        email : email,
-        password : password
+        password : password,
+        groups : [{
+          name : "test",
+          balance : 100.0
+      }]
     };
 
     try {
