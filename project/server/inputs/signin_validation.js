@@ -1,7 +1,6 @@
-import db from "../db/connection.js";
 
 
-export const signIn = async (username, password) => {
+const signIn = async (username, password) => {
 
     if (!username || username.trim() === ' '){
         throw new Error("Username cannot be empty");
@@ -11,19 +10,13 @@ export const signIn = async (username, password) => {
     }
 
     try {
-        let collection = await db.collection("allUsers");
-        const user = await collection.findOne({ username, password });
-        
-        if (user) {
-            // User signed in successfully
-            return { success: true, message: "Sign in successful" };
-        } else {
-            // No credential match
+        const response = await fetch(`http://localhost:5050/user/${username}/${password}`);
+        if (response.status === 404){
             throw new Error("Username or Password mismatch");
         }
     } catch (error) {
-        console.error("Error during sign-in:", error);
-        throw new Error("Internal error");
+        throw new Error("Username or Password mismatch");
+
     }
 };
 

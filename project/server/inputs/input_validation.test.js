@@ -1,4 +1,5 @@
-/*import {validateUserRegistration} from "./input_validation";
+import {validateUserRegistration} from "./input_validation";
+
 
 describe('Input Validation', () => {
     test('Valid TestCase', async () => {
@@ -10,7 +11,6 @@ describe('Input Validation', () => {
         const response = await fetch(`http://localhost:5050/delete/username1`, {
           method: "DELETE",
         });
-        console.log("delete status:" + response.status);
         if (!response.ok) {
             throw new Error(`Username does not exist`);
         }
@@ -44,8 +44,10 @@ describe('Input Validation', () => {
 
     test('Invalid TestCase, username exception' , async () => {
       const invalidInput = ['' , 'Password1!' , 'Passwor1!'];
-      await expect(validateUserRegistration(...invalidInput)).rejects.toThrow("");
+      await expect(validateUserRegistration(...invalidInput)).rejects.toThrow("Username cannot be empty");
     }); 
 
 
-  }); */
+  }); 
+
+  
