@@ -21,11 +21,9 @@ const validateUsername = async (username) => {
     } catch (error) {
         if (error instanceof TypeError) {
             // Network error/failed to fetch
-            console.error("Network error:", error);
             throw new Error("Failed to fetch username information");
         } else if (error instanceof Error) {
             // Username exists in the database
-            console.error("Error checking username:", error.message);
             throw new Error("Username exists in the database");
         }
     }

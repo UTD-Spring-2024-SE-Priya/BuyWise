@@ -10,7 +10,7 @@ import input from "../inputs/input_validation.js"
 
 // router is an instance of the express router.
 // We use it to define our routes.
-// The router will be added as a middleware and will take control of requests starting with path /record.
+// The router will be added as a middleware and will take control of requests starting with path.
 const router = express.Router();
 
 router.post("/users", async (req, res) => {
@@ -49,6 +49,16 @@ router.get("/username/:username", async (req, res) => {
   }
 });
 
+router.get("/user/:username/:password", async (req, res) => {
+  let collection = db.collection("allUsers");
+  let query = { username: req.params.username , password : req.params.password};
+  let result = await collection.findOne(query);
+  if (!result) {
+    res.status(404).send("Not found"); // Send a bad request status if username not found
+  } else {
+    res.send(result).status(200);
+  }
+});
 
 
 // Route to delete user
@@ -65,6 +75,8 @@ router.delete("/delete/:username", async (req, res) => {
     }
   
 });
+
+
 
 
 export default router;
