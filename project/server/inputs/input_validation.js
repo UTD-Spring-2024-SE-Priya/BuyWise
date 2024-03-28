@@ -70,7 +70,7 @@ const validateUsername = async (username) => {
         password : password,
         groups : [{
           name : "test",
-          balance : 100.0
+          totalBalance : 100.0
       }]
     };
 

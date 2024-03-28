@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 
 // This will help us connect to the database
 import db from "../db/connection.js";
@@ -49,6 +49,17 @@ router.get("/username/:username", async (req, res) => {
   }
 });
 
+router.get("/:username/:group" , async (req , res) => {
+  let collection = db.collection("allUsers");
+  let query = {username : req.params.username , group : req.params.group.name};
+  let result = await collection.findOne(query);
+  if (!result) {
+    res.status(404).send("Not found"); // Send a bad request status if username not found
+  } else {
+    res.send(result).status(200);
+  }
+});
+
 router.get("/user/:username/:password", async (req, res) => {
   let collection = db.collection("allUsers");
   let query = { username: req.params.username , password : req.params.password};
@@ -75,6 +86,56 @@ router.delete("/delete/:username", async (req, res) => {
     }
   
 });
+
+// 
+router.patch("/deposit/:username/:groupname" , async (req , res) => {
+  let updateDb = null;
+
+  try {
+
+    const username = req.params.username;
+    const groupName = req.params.groupname;
+    const balance = req.body.balance;
+
+    let collection = db.collection("allUsers");
+    
+    const query = {
+      username: username,
+      "groups.name": groupName // Match documents where username matches and groups array contains an object with the specified name
+    };
+    
+    
+    const update = {
+      $set: {
+        "groups.$[group].totalBalance": balance // Update the totalBalance field of the matched group(s)
+      },
+    };
+    
+    const arrayFilters = [
+      { "group.name": groupName } // Filter to identify the group(s) to update based on the name
+    ];
+    
+    console.log(update);
+    
+    updateDb = await collection.updateOne(query, update, { arrayFilters });
+    console.log(updateDb);
+    
+
+    if (updateDb.modifiedCount === 0) {
+      throw new Error("Failed to update group balance");
+    }
+
+    // Respond with success
+    res.status(200).send(updateDb);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(updateDb);
+  }
+});
+
+
+
+
 
 
 
