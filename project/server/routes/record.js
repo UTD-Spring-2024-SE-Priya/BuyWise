@@ -49,9 +49,10 @@ router.get("/username/:username", async (req, res) => {
   }
 });
 
+
 router.get("/:username/:group" , async (req , res) => {
   let collection = db.collection("allUsers");
-  let query = {username : req.params.username , group : req.params.group.name};
+  let query = {username : req.params.username , "groups.name" : req.params.group};
   let result = await collection.findOne(query);
   if (!result) {
     res.status(404).send("Not found"); // Send a bad request status if username not found
@@ -88,7 +89,7 @@ router.delete("/delete/:username", async (req, res) => {
 });
 
 // 
-router.patch("/deposit/:username/:groupname" , async (req , res) => {
+router.patch("/update/:username/:groupname" , async (req , res) => {
   let updateDb = null;
 
   try {
