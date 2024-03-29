@@ -19,6 +19,6 @@ describe('Deposit validation', () => {
         const validInput = ['username5', '', 'test'];
         await expect(deposit(...validInput)).rejects.toThrow("Value cannot be empty");
     });
-    //
+    
 
 });

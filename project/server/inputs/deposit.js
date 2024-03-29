@@ -42,4 +42,3 @@ const deposit = async (username, depositAmount, group) => {
 };
 
 export default deposit;
-//
