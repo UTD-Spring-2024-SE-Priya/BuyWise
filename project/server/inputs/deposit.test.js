@@ -15,10 +15,27 @@ describe('Deposit validation', () => {
         await expect(deposit(...validInput)).rejects.toThrow("Value is not a number");
     });
 
+
     test('Invalid TestCase, Value entered is empty', async () => {
         const validInput = ['username5', '', 'test'];
         await expect(deposit(...validInput)).rejects.toThrow("Value cannot be empty");
+
+
+        /*try {
+            const response = await fetch(`http://localhost:5050/delete/username5`, {
+              method: "DELETE",
+            });
+            if (!response.ok) {
+                throw new Error(`Username does not exist`);
+            }
+          } catch (error) {
+              // Network error or failed to fetch
+              console.error("Network error:", error);
+              throw new Error("Failed to fetch username information");
+          }
+          */
     });
+    
     
 
 });

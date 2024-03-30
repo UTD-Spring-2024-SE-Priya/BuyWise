@@ -30,7 +30,7 @@ const deposit = async (username, depositAmount, group) => {
                 "Content-type": "application/json"
             },
             body: JSON.stringify({
-                "balance": data.groups[0].totalBalance + parseFloat(depositAmount)
+                "balance": data.groups[groupIndex].totalBalance + parseFloat(depositAmount)
             })
         });
         if (!updateResponse.ok) {
