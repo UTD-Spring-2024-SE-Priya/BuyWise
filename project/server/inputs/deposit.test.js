@@ -21,7 +21,7 @@ describe('Deposit validation', () => {
         await expect(deposit(...validInput)).rejects.toThrow("Value cannot be empty");
 
 
-        /*try {
+        try {
             const response = await fetch(`http://localhost:5050/delete/username5`, {
               method: "DELETE",
             });
@@ -33,7 +33,7 @@ describe('Deposit validation', () => {
               console.error("Network error:", error);
               throw new Error("Failed to fetch username information");
           }
-          */
+          
     });
     
     
