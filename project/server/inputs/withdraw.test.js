@@ -37,5 +37,6 @@ describe('Withdraw validation' , () => {
               console.error("Network error:", error);
               throw new Error("Failed to fetch username information");
           }
+          
     });
 });
