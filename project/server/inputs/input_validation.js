@@ -68,14 +68,7 @@ const validateUsername = async (username) => {
     const userData = {
         username : username,
         password : password,
-        groups : [{
-          name : "test",
-          totalBalance : 100.0
-        },
-        {
-          name : "test4",
-          totalBalance : 200.0
-        }
+        groups : [
     ]
     };
 

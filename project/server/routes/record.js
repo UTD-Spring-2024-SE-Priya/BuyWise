@@ -88,6 +88,33 @@ router.delete("/delete/:username", async (req, res) => {
   
 });
 
+router.patch("/update/addAccount/:username" , async (req , res) => {
+  let updateDb = null;
+    try {
+    const username = req.params.username;
+    let collection = db.collection("allUsers");
+    const objAdd = req.body.newAccount;
+
+    const query = {username : username};
+    const update = {
+      $push: {
+        groups : objAdd
+      }
+    };
+
+    updateDb = await collection.updateOne(query , update);
+    console.log(updateDb);
+    if (updateDb.modifiedCount === 0){
+      throw new Error("Failed to add group");
+    }
+    res.status(200).send(updateDb);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(updateDb);
+  }
+
+});
+
 // 
 router.patch("/update/:username/:groupname" , async (req , res) => {
   let updateDb = null;
