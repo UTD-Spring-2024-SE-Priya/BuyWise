@@ -135,7 +135,7 @@ router.patch("/update/:username/:groupname" , async (req , res) => {
     
     const update = {
       $set: {
-        "groups.$[group].totalBalance": balance // Update the totalBalance field of the matched group(s)
+        "groups.$[group].balance": balance // Update the totalBalance field of the matched group(s)
       },
     };
     

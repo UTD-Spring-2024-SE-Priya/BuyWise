@@ -4,11 +4,15 @@ const withdraw = async (username, withdrawAmount, groupName) => {
 if (!withdrawAmount || withdrawAmount.trim() === '') {
     throw new Error("Value cannot be empty");
 }
+
+if (withdrawAmount < 0){
+    throw new Error("Value cannot be negative");
+}
 let data = null;
 
 
 // Check if withdrawAmount is a valid number
-if (!/^\d+$/.test(withdrawAmount.trim())) {
+if (!/^\d+(\.\d+)?$/.test(withdrawAmount.trim())) {
     throw new Error("Value is not a number");
 }
     let response = null; // Declare a variable to hold the response
@@ -21,7 +25,7 @@ if (!/^\d+$/.test(withdrawAmount.trim())) {
         // Parse the response body as JSON
         data = await response.json();
         // Access properties from the response data
-        if (data.groups[0].totalBalance < parseFloat(withdrawAmount)) {
+        if (data.groups[0].balance < parseFloat(withdrawAmount)) {
             throw new Error("Not enough balance in your account");
         }
     } catch (error) {
@@ -36,7 +40,7 @@ if (!/^\d+$/.test(withdrawAmount.trim())) {
                 "Content-type" : "application/json"
             },
             body: JSON.stringify({
-                "balance": data.groups[groupIndex].totalBalance - parseFloat(withdrawAmount)
+                "balance": data.groups[groupIndex].balance - parseFloat(withdrawAmount)
             })
         });
         if (!updateResponse.ok){
