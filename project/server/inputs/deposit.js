@@ -3,10 +3,14 @@ const deposit = async (username, depositAmount, groupName) => {
     if (!depositAmount || depositAmount.trim() === '') {
         throw new Error("Value cannot be empty");
     }
+
+    if (depositAmount < 0){
+        throw new Error("Value cannot be negative");
+    }
     let data = null;
 
     // Check if depositAmount is a valid number
-    if (!/^\d+$/.test(depositAmount.trim())) {
+    if (!/^\d+(\.\d+)?$/.test(depositAmount.trim())) {
         throw new Error("Value is not a number");
     }
     let response = null; // Declare a variable to hold the response
@@ -34,7 +38,7 @@ const deposit = async (username, depositAmount, groupName) => {
                 "Content-type": "application/json"
             },
             body: JSON.stringify({
-                "balance": data.groups[groupIndex].totalBalance + parseFloat(depositAmount)
+                "balance": parseFloat(data.groups[groupIndex].balance) + parseFloat(depositAmount)
             })
         });
         if (!updateResponse.ok){
