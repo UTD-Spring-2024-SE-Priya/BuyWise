@@ -18,7 +18,7 @@ describe('SignIn validation' , () => {
     });
 
     test('Invalid TestCase, username not found', async () => {
-        const validInputSignIn = ['username3' , 'Password1!'];
+        const validInputSignIn = ['username100' , 'Password1!'];
         await expect (signIn(...validInputSignIn)).rejects.toThrow("Username or Password mismatch");
     });
 
