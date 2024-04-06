@@ -1,4 +1,4 @@
-import signIn from '../../server/inputs/signin_validation';
+import signIn from "../../server/inputs/signin_validation";
 
 const loginText = document.querySelector(".title-text .login");
 const loginForm = document.querySelector("form.login");
@@ -23,8 +23,9 @@ loginSubmit.onclick = (() => {
 });
 
 async function loginCheck() {
-    const username = document.getElementById("usernameField");
-    const password = document.getElementById("passwordField");
+    const username = document.getElementById("usernameField").value;
+    console.log(username);
+    const password = document.getElementById("passwordField").value;
     try {
         await signIn(username, password);
         console.log("success");
