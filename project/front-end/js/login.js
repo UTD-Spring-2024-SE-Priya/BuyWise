@@ -25,7 +25,6 @@ async function loginCheck() {
     const username = document.getElementById("usernameField").value;
     console.log(username);
     const password = document.getElementById("passwordField").value;
-    try {
         try {
             const response = await fetch(`http://localhost:5050/user/${username}/${password}`);
             if (response.status === 404){
@@ -36,9 +35,5 @@ async function loginCheck() {
     
         }
         console.log("success");
-    } catch (error) {
-        console.error("Error during sign-in:", error.message);
     }
-
-}
 
