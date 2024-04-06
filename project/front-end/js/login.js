@@ -1,4 +1,3 @@
-import signIn from "../../server/inputs/signin_validation";
 
 const loginText = document.querySelector(".title-text .login");
 const loginForm = document.querySelector("form.login");
@@ -27,7 +26,15 @@ async function loginCheck() {
     console.log(username);
     const password = document.getElementById("passwordField").value;
     try {
-        await signIn(username, password);
+        try {
+            const response = await fetch(`http://localhost:5050/user/${username}/${password}`);
+            if (response.status === 404){
+                throw new Error("Username or Password mismatch");
+            }
+        } catch (error) {
+            throw new Error("Username or Password mismatch");
+    
+        }
         console.log("success");
     } catch (error) {
         console.error("Error during sign-in:", error.message);
