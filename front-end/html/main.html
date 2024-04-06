@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+</head>
+<body>
+    <header class="dashboard-container">
+        <nav class="header-section">
+            <div class="account-details">
+                <h1>Account Details</h1>
+                <button aria-label="Settings" class="settings-button">Settings<i class="fas fa-cog"></i></button>
+            </div>
+        </nav>
+        <button class="group-button">Group Finance Management</button>
+        <main>
+            <section class="financial-summary">
+                <div class="monthly-expenses">
+                    <span class="amount">$1,890.50</span>
+                    <span class="label">Monthly Expenses</span>
+                </div>
+                <div class="monthly-income">
+                    <span class="amount">$3,210.00</span>
+                    <span class="label">Monthly Income</span>
+                </div>
+                <div class="account-balance">
+                    <span class="amount">$12,345.67</span>
+                    <span class="label">Account Balance</span>
+                </div>
+            </section>
+            <section class="action-buttons">
+                <button class="withdraw-button">Withdraw</button>
+                <button class="deposit-button">Deposit</button>
+                <button class="edit-button">Edit</button>
+            </section>
+            <section class="charts-container">
+                <div class="chart-container">
+                    <h2>Daily Balance Chart</h2>
+                    <canvas id="dailyBalanceChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h2>History Chart</h2>
+                    <canvas id="historyChart"></canvas>
+                </div>
+            </section>
+        </main>
+        <footer class="footer-section">
+            <button class="history-button">History</button>
+        </footer>
+        <nav class="navigation">
+            <button class="back-button"><i class="fas fa-arrow-left"></i>Back</button>
+        </nav>
+    </header>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
