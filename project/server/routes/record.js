@@ -6,7 +6,6 @@ import db from "../db/connection.js";
 // This help convert the id from string to ObjectId for the _id.
 import { ObjectId } from "mongodb";
 
-import input from "../inputs/input_validation.js"
 
 // router is an instance of the express router.
 // We use it to define our routes.
