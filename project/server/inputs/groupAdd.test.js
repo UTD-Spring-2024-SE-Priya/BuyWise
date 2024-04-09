@@ -7,7 +7,11 @@ describe('Add group validation' , () => {
         const testUser = ['username5' , 'Password1!' , 'Password1!'];
         await validateUserRegistration(...testUser);
 
-        const groupInput = ['username5' , 'checking account' , '200.0' , 'test4,username9'];
+        await validateUserRegistration('sharedAccount1' , 'Password1!' , 'Password1!');
+        await validateUserRegistration('sharedAccount2' , 'Password1!' , 'Password1!');
+
+
+        const groupInput = ['username5' , 'checking account' , '200.0' , 'sharedAccount1,sharedAccount2'];
         await expect (addGroup(...groupInput)).resolves.not.toThrow();
 
     });
@@ -16,6 +20,22 @@ describe('Add group validation' , () => {
         const groupInput = ['username5' , '' , '200.0' , ''];
         await expect (addGroup(...groupInput)).rejects.toThrow("account name cannot be empty");
     });
+
+    test('Invalid testcase, username entered not valid' , async () => {
+        const groupInput = ['username5' , 'dont work' , '200.0' , 'fakename'];
+        await expect (addGroup(...groupInput)).rejects.toThrow("User does not exist");
+    });
+
+    test('Invalid testcase, usernames cant have spaces' , async () => {
+        const groupInput = ['username5' , 'dont work' , '200.0' , 'fakename ,'];
+        await expect (addGroup(...groupInput)).rejects.toThrow("User list cannot contain spaces");
+    });
+
+    test('Invalid testcase, check input for bad commans' , async () => {
+        const groupInput = ['username5' , 'dont work' , '200.0' , 'fakename,,test'];
+        await expect (addGroup(...groupInput)).rejects.toThrow("Invalid input: Multiple consecutive commas or comma at the end");
+    });
+
 
     test('Invalid testcase, empty balance value' , async () => {
         const groupInput = ['username5' , 'checking account' , '' , ''];
