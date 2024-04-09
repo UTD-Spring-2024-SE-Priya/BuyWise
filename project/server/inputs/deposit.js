@@ -1,4 +1,4 @@
-const deposit = async (username, depositAmount, groupName) => {
+const deposit = async (username, depositAmount, groupID) => {
     // Check if depositAmount is null or empty
     if (!depositAmount || depositAmount.trim() === '') {
         throw new Error("Value cannot be empty");
@@ -16,7 +16,7 @@ const deposit = async (username, depositAmount, groupName) => {
     let response = null; // Declare a variable to hold the response
     try {
         // Await the fetch request and store the response
-        response = await fetch(`http://localhost:5050/${username}/${groupName}`);
+        response = await fetch(`http://localhost:5050/${username}/${groupID}`);
         if (!response.ok) {
             throw new Error("Username group combo not found");
         }
@@ -27,12 +27,12 @@ const deposit = async (username, depositAmount, groupName) => {
     }
 
     try {
-        const groupIndex = data.groups.findIndex(group => group.name === groupName);
+        const groupIndex = data.groups.findIndex(group => group._id === groupID);
         if (groupIndex === -1) {
             throw new Error("Group not found");
         }
         // Perform deposit by updating balance
-        let updateResponse = await fetch(`http://localhost:5050/update/${username}/${groupName}`, {
+        let updateResponse = await fetch(`http://localhost:5050/update/${username}/${groupID}`, {
             method: "PATCH",
             headers: {
                 "Content-type": "application/json"
