@@ -51,7 +51,7 @@ router.get("/username/:username", async (req, res) => {
 
 router.get("/:username/:group" , async (req , res) => {
   let collection = db.collection("allUsers");
-  let query = {username : req.params.username , "groups.name" : req.params.group};
+  let query = {username : req.params.username , "groups._id" : req.params.group};
   let result = await collection.findOne(query);
   if (!result) {
     res.status(404).send("Not found"); // Send a bad request status if username not found
@@ -106,6 +106,7 @@ router.patch("/update/addAccount/:username" , async (req , res) => {
     if (updateDb.modifiedCount === 0){
       throw new Error("Failed to add group");
     }
+    updateDb.groupID = req.body.newAccount._id;
     res.status(200).send(updateDb);
   } catch (error) {
     console.error(error);
@@ -115,20 +116,20 @@ router.patch("/update/addAccount/:username" , async (req , res) => {
 });
 
 // 
-router.patch("/update/:username/:groupname" , async (req , res) => {
+router.patch("/update/:username/:groupID" , async (req , res) => {
   let updateDb = null;
 
   try {
 
     const username = req.params.username;
-    const groupName = req.params.groupname;
+    const group = req.params.groupID;
     const balance = req.body.balance;
 
     let collection = db.collection("allUsers");
     
     const query = {
       username: username,
-      "groups.name": groupName // Match documents where username matches and groups array contains an object with the specified name
+      "groups._id": group // Match documents where username matches and groups array contains an object with the specified name
     };
     
     
@@ -139,7 +140,7 @@ router.patch("/update/:username/:groupname" , async (req , res) => {
     };
     
     const arrayFilters = [
-      { "group.name": groupName } // Filter to identify the group(s) to update based on the name
+      { "group._id": group } // Filter to identify the group(s) to update based on the name
     ];
     
     console.log(update);
