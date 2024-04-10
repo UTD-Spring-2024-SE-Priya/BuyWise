@@ -115,7 +115,6 @@ router.patch("/update/addAccount/:username" , async (req , res) => {
 
 });
 
-// 
 router.patch("/update/:username/:groupID" , async (req , res) => {
   let updateDb = null;
 
@@ -158,6 +157,18 @@ router.patch("/update/:username/:groupID" , async (req , res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send(updateDb);
+  }
+});
+
+router.get("/find/user/group/:group", async (req, res) => {
+  let collection = db.collection("allUsers");
+  let query = {"groups._id" : req.params.group};
+  console.log(req.params.group);
+  let result = await collection.findOne(query);
+  if (!result) {
+    res.status(404).send("Not found"); // Send a bad request status if username not found
+  } else {
+    res.send(result).status(200);
   }
 });
 

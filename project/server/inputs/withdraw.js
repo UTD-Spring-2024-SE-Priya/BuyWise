@@ -1,6 +1,5 @@
-import e from "express";
 
-const withdraw = async (username, withdrawAmount, groupID) => {
+const withdraw = async (withdrawAmount, groupID) => {
  // Check if withdrawAmount is null or empty
 if (!withdrawAmount || withdrawAmount.trim() === '') {
     throw new Error("Value cannot be empty");
@@ -9,47 +8,53 @@ if (!withdrawAmount || withdrawAmount.trim() === '') {
 if (withdrawAmount < 0){
     throw new Error("Value cannot be negative");
 }
-let data = null;
+
+
 
 
 // Check if withdrawAmount is a valid number
 if (!/^\d+(\.\d+)?$/.test(withdrawAmount.trim())) {
     throw new Error("Value is not a number");
 }
-    let response = null; // Declare a variable to hold the response
-    try {
-        // Await the fetch request and store the response
-        response = await fetch(`http://localhost:5050/${username}/${groupID}`);
-        if (!response.ok) {
-            throw new Error("Username group combo not found");
-        }
-        // Parse the response body as JSON
-        data = await response.json();
-        const groupIndex = data.groups.findIndex(group => group._id === groupID);
-        if (data.groups[groupIndex].balance < parseFloat(withdrawAmount)) {
-            throw new Error("Not enough balance in your account");
-        }
-    } catch (error) {
-        throw new Error(error);
+    
+try {  
+    const data = await fetch(`http://localhost:5050/find/user/group/${groupID}`);
+    const json = await data.json();
+    const userGroupIndex = json.groups.findIndex(group => group._id === groupID);
+    const initialBalance = parseFloat(json.groups[userGroupIndex].balance);
+    if (initialBalance < parseFloat(withdrawAmount)){
+        throw new Error("Not enough balance in your account");
     }
-
-    try {
-        const groupIndex = data.groups.findIndex(group => group._id === groupID);
-        let updateResponse = await fetch(`http://localhost:5050/update/${username}/${groupID}` , {
-            method : "PATCH" ,
-            headers : {
-                "Content-type" : "application/json"
-            },
-            body: JSON.stringify({
-                "balance": data.groups[groupIndex].balance - parseFloat(withdrawAmount)
-            })
-        });
-        if (!updateResponse.ok){
-            throw new Error("Withdraw unsuccessful");
+    let eachUser = json.groups[userGroupIndex].users;
+    let arrayUsers = eachUser.split(",");
+    for (const user of arrayUsers){
+        try {
+            const curUser = await fetch(`http://localhost:5050/username/${user}`);
+            const jsonCurUser = await curUser.json();
+            const groupIndex = jsonCurUser.groups.findIndex(group => group._id === groupID);
+            if (groupIndex === -1) {
+                throw new Error("Group found");
+            }
+            // Perform deposit by updating balance
+            let updateResponse = await fetch(`http://localhost:5050/update/${user}/${groupID}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    "balance": initialBalance - parseFloat(withdrawAmount)
+                })
+            });
+            if (!updateResponse.ok){
+                throw new Error("Deposit unsuccessful");
+            }
+        } catch (error) {
+            throw new Error(error);
         }
-    } catch (error) {
-        console.log(error);
     }
+} catch (error) {
+    throw new Error(error);
+}
 
 
 

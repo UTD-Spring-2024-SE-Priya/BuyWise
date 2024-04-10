@@ -72,7 +72,7 @@ async function addUserGroup(username , accountName , balance , users, id){
                 "newAccount" : {
                 "name" : accountName,
                 _id : id,
-                "balance" : balance,
+                "balance" : parseFloat(balance),
                 "users" : users
                 }
             })
