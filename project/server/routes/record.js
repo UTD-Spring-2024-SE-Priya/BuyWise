@@ -115,39 +115,31 @@ router.patch("/update/addAccount/:username" , async (req , res) => {
 
 });
 
-router.patch("/update/:username/:groupID" , async (req , res) => {
+router.patch("/update/balance/:groupID" , async (req , res) => {
   let updateDb = null;
 
   try {
-
-    const username = req.params.username;
     const group = req.params.groupID;
     const balance = req.body.balance;
 
     let collection = db.collection("allUsers");
     
     const query = {
-      username: username,
-      "groups._id": group // Match documents where username matches and groups array contains an object with the specified name
+      "groups._id": group // Match documents where groups array contains an object with the specified _id
     };
-    
     
     const update = {
       $set: {
-        "groups.$[group].balance": balance // Update the totalBalance field of the matched group(s)
+        "groups.$[group].balance": balance // Update the balance field of the matched group(s)
       },
     };
     
     const arrayFilters = [
-      { "group._id": group } // Filter to identify the group(s) to update based on the name
+      { "group._id": group } // Filter to identify the group(s) to update based on the _id
     ];
     
-    console.log(update);
+    updateDb = await collection.updateMany(query, update, { arrayFilters });
     
-    updateDb = await collection.updateOne(query, update, { arrayFilters });
-    console.log(updateDb);
-    
-
     if (updateDb.modifiedCount === 0) {
       throw new Error("Failed to update group balance");
     }
