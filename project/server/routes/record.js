@@ -156,11 +156,12 @@ router.get("/find/user/group/:group", async (req, res) => {
   let collection = db.collection("allUsers");
   let query = {"groups._id" : req.params.group};
   console.log(req.params.group);
-  let result = await collection.findOne(query);
-  if (!result) {
+  let result = collection.find(query);
+  let array = await result.toArray();
+  if (array.length === 0) {
     res.status(404).send("Not found"); // Send a bad request status if username not found
   } else {
-    res.send(result).status(200);
+    res.send(array).status(200);
   }
 });
 
