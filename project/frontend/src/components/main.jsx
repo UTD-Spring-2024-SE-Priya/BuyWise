@@ -5,50 +5,41 @@ class FinancialDashboard extends React.Component {
     render() {
         return (
             <div className="dashboard-container">
-                <nav className="header-section">
+                <header className="dashboard-header">
+                    <h1>Individual Account Dashboard</h1>
+                    <button className="button finance-management">Group Finance Management</button>
+                </header>
+                <section className="dashboard-details">
                     <div className="account-details">
-                        <h1>Account Details</h1>
-                        <button aria-label="Settings" className="settings-button">Settings</button>
+                        <h2>Account Details</h2>
+                        <button className="button edit">Edit</button>
                     </div>
-                </nav>
-                <button className="group-button">Group Finance Management</button>
-                <main>
-                    <section className="financial-summary">
-                        <div className="monthly-expenses">
-                            <span className="amount">$1,890.50</span>
-                            <span className="label">Monthly Expenses</span>
+                    <div className="financial-summary">
+                        <div className="financial-item balance">
+                            <label>Account Balance</label>
+                            <div>$12,345.67</div>
                         </div>
-                        <div className="monthly-income">
-                            <span className="amount">$3,210.00</span>
-                            <span className="label">Monthly Income</span>
+                        <div className="financial-item income">
+                            <label>Monthly Income</label>
+                            <div>$3,210.00</div>
                         </div>
-                        <div className="account-balance">
-                            <span className="amount">$12,345.67</span>
-                            <span className="label">Account Balance</span>
+                        <div className="financial-item expenses">
+                            <label>Monthly Expenses</label>
+                            <div>$1,890.50</div>
                         </div>
-                    </section>
-                    <section className="action-buttons">
-                        <button className="withdraw-button">Withdraw</button>
-                        <button className="deposit-button">Deposit</button>
-                        <button className="edit-button">Edit</button>
-                    </section>
-                    <section className="charts-container">
-                        <div className="chart-container">
-                            <h2>Daily Balance Chart</h2>
-                            <canvas id="dailyBalanceChart"></canvas>
+                    </div>
+                    <div className="chart-container">
+                        <div className="chart daily-balance-chart">
+                            <h3>Daily Balance Chart</h3>
+                            <div className="chart-placeholder">Daily Balance Chart Here</div>
                         </div>
-                        <div className="chart-container">
-                            <h2>History Chart</h2>
-                            <canvas id="historyChart"></canvas>
+                        <div className="chart transaction-history">
+                            <h3>Transaction History</h3>
+                            <div className="history-placeholder">History</div>
                         </div>
-                    </section>
-                </main>
-                <footer className="footer-section">
-                    <button className="history-button">History</button>
-                </footer>
-                <nav className="navigation">
-                    <button className="back-button">Back</button>
-                </nav>
+                    </div>
+                    <button className="button back">Back</button>
+                </section>
             </div>
         );
     }
