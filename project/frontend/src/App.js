@@ -1,82 +1,95 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './login.css';
-
 import {
     BrowserRouter as Router,
-    useNavigate,
     Routes,
     Route,
-    Navigate,
+    useNavigate,
+    Link
 } from "react-router-dom";
 
 import FinancialDashboard from "./components/main";
 
-class LoginForm extends React.Component {
-    state = {
-        isLoginForm: true,
-        username: '',
-        password: '',
-        createUsername: '',
-        createPassword: '',
-        confirmPassword: ''
+function LoginForm() {
+    const [isLoginForm, setIsLoginForm] = useState(true);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [createUsername, setCreateUsername] = useState('');
+    const [createPassword, setCreatePassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const navigate = useNavigate()
+
+    const toggleForm = () => {
+        setIsLoginForm(prevState => !prevState);
     };
 
-    toggleForm = () => {
-        this.setState(prevState => ({
-            isLoginForm: !prevState.isLoginForm
-        }));
+    const handleChange = e => {
+        const { id, value } = e.target;
+        switch (id) {
+            case "username":
+                setUsername(value);
+                break;
+            case "password":
+                setPassword(value);
+                break;
+            case "createUsername":
+                setCreateUsername(value);
+                break;
+            case "createPassword":
+                setCreatePassword(value);
+                break;
+            case "confirmPassword":
+                setConfirmPassword(value);
+                break;
+            default:
+                break;
+        }
     };
 
-    handleChange = e => {
-        this.setState({
-            [e.target.id]: e.target.value
-        });
-    };
-
-    handleSubmit = async e => {
-        const navigate = useNavigate();
+    const handleSubmit = async e => {
         e.preventDefault();
-        if (this.state.isLoginForm) {
+        if (isLoginForm) {
             try {
-                await this.signIn(this.state.username, this.state.password);
+                await signIn(username, password);
                 console.log('success');
             } catch (error) {
                 console.log(error);
             }
         } else {
             try {
-                await this.signUpCheck();
+                await signUpCheck();
                 console.log('success');
-                navigate("/FinancialDashboard");
-                this.toggleForm();
+                toggleForm();
             } catch (error) {
                 console.log(error);
             }
         }
     };
 
-    async signUpCheck() {
-        const { createUsername, createPassword, confirmPassword } = this.state;
-
+    const signUpCheck = async () => {
         try {
-            await this.validateUsername(createUsername);
-            this.validatePassword(createPassword, confirmPassword);
-            await this.addUser(createUsername, createPassword);
+            await validateUsername(createUsername);
+            validatePassword(createPassword, confirmPassword);
+            await addUser(createUsername, createPassword);
         } catch (error) {
             console.log(error);
             throw error;
         }
     }
 
-    async signIn(username, password) {
+    const signIn = async (username, password) => {
         if (!username.trim() || !password.trim()) {
             throw new Error('Username or password cannot be empty');
         }
 
         try {
             const response = await fetch(`http://localhost:5050/user/${username}/${password}`);
+            
             if (response.status === 404) {
                 throw new Error('Username or Password mismatch');
+            } else {
+                navigate('/FinancialDashboard')
             }
         } catch (error) {
             console.log(error);
@@ -84,7 +97,7 @@ class LoginForm extends React.Component {
         }
     }
 
-    validateUsername = async username => {
+    const validateUsername = async username => {
         if (!username.trim()) {
             throw new Error('Username cannot be empty');
         }
@@ -109,7 +122,7 @@ class LoginForm extends React.Component {
         }
     };
 
-    validatePassword = (password, confirmPassword) => {
+    const validatePassword = (password, confirmPassword) => {
         if (!password.trim()) {
             throw new Error('Password cannot be empty');
         }
@@ -124,7 +137,7 @@ class LoginForm extends React.Component {
         }
     };
 
-    async addUser(username, password) {
+    const addUser = async (username, password) => {
         const userData = {
             username: username,
             password: password,
@@ -152,60 +165,69 @@ class LoginForm extends React.Component {
         }
     }
 
-    render() {
-        return (
-            <div className="wrapper">
-                <div className="title-text">
-                    <div className={`title ${this.state.isLoginForm ? 'login' : 'signup'}`}>Account</div>
-                    <div className={`title ${this.state.isLoginForm ? 'login' : 'signup'}`}>Account</div>
+    return (
+        <div className="wrapper">
+            <div className="title-text">
+                <div className={`title ${isLoginForm ? 'login' : 'signup'}`}>Account</div>
+                <div className={`title ${isLoginForm ? 'login' : 'signup'}`}>Account</div>
+            </div>
+            <div className="form-container">
+                <div className="slide-controls">
+                    <input type="radio" name="slide" id="login" checked={isLoginForm} onChange={toggleForm} />
+                    <input type="radio" name="slide" id="signup" checked={!isLoginForm} onChange={toggleForm} />
+                    <label htmlFor="login" className={`slide ${isLoginForm ? 'login' : 'signup'}`}>Login</label>
+                    <label htmlFor="signup" className={`slide ${isLoginForm ? 'login' : 'signup'}`}>SignUp</label>
+                    <div className="slider-tab"></div>
                 </div>
-                <div className="form-container">
-                    <div className="slide-controls">
-                        <input type="radio" name="slide" id="login" checked={this.state.isLoginForm} onChange={this.toggleForm} />
-                        <input type="radio" name="slide" id="signup" checked={!this.state.isLoginForm} onChange={this.toggleForm} />
-                        <label htmlFor="login" className={`slide ${this.state.isLoginForm ? 'login' : 'signup'}`}>Login</label>
-                        <label htmlFor="signup" className={`slide ${this.state.isLoginForm ? 'login' : 'signup'}`}>SignUp</label>
-                        <div className="slider-tab"></div>
-                    </div>
-                    <div className="form-inner">
-                        <form action="#" className={this.state.isLoginForm ? 'login' : 'signup'} onSubmit={this.handleSubmit}>
-                            {this.state.isLoginForm ? (
-                                <>
-                                    <div className="field">
-                                        <input type="text" placeholder="Username" id="username" value={this.state.username} onChange={this.handleChange} required />
-                                    </div>
-                                    <div className="field">
-                                        <input type="password" placeholder="Password" id="password" value={this.state.password} onChange={this.handleChange} required />
-                                    </div>
-                                    <div className="signup-link">
-                                        Don't have account? <a href="#" onClick={this.toggleForm}>Create account</a>
-                                    </div>
+                <div className="form-inner">
+                    <form action="#" className={isLoginForm ? 'login' : 'signup'} onSubmit={handleSubmit}>
+                        {isLoginForm ? (
+                            <>
+                                <div className="field">
+                                    <input type="text" placeholder="Username" id="username" value={username} onChange={handleChange} required />
+                                </div>
+                                <div className="field">
+                                    <input type="password" placeholder="Password" id="password" value={password} onChange={handleChange} required />
+                                </div>
+                                <div className="signup-link">
+                                    Don't have account? <Link to="#" onClick={toggleForm}>Create account</Link>
+                                </div>
 
-                                </>
-                            ) : (
-                                <>
-                                    <div className="field">
-                                        <input type="text" placeholder="Username" id="createUsername" value={this.state.createUsername} onChange={this.handleChange} required />
-                                    </div>
-                                    <div className="field">
-                                        <input type="password" placeholder="Password" id="createPassword" value={this.state.createPassword} onChange={this.handleChange} required />
-                                    </div>
-                                    <div className="field">
-                                        <input type="password" placeholder="Confirm Password" id="confirmPassword" value={this.state.confirmPassword} onChange={this.handleChange} required />
-                                    </div>
-                                </>
-                            )}
-                            <div className="field btn">
-                                <div className="btn-layer"></div>
-                                <input type="submit" value={this.state.isLoginForm ? 'Login' : 'SignUp'} />
-                            </div>
-                            {!this.state.isLoginForm}
-                        </form>
-                    </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="field">
+                                    <input type="text" placeholder="Username" id="createUsername" value={createUsername} onChange={handleChange} required />
+                                </div>
+                                <div className="field">
+                                    <input type="password" placeholder="Password" id="createPassword" value={createPassword} onChange={handleChange} required />
+                                </div>
+                                <div className="field">
+                                    <input type="password" placeholder="Confirm Password" id="confirmPassword" value={confirmPassword} onChange={handleChange} required />
+                                </div>
+                            </>
+                        )}
+                        <div className="field btn">
+                            <div className="btn-layer"></div>
+                            <input type="submit" value={isLoginForm ? 'Login' : 'SignUp'} />
+                        </div>
+                        {!isLoginForm}
+                    </form>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
-export default LoginForm;
+function App() {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<LoginForm />} />
+                <Route path="/FinancialDashboard" element={<FinancialDashboard />} />
+            </Routes>
+        </Router>
+    );
+}
+
+export default App;
