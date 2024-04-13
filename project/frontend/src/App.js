@@ -89,7 +89,7 @@ function LoginForm() {
             if (response.status === 404) {
                 throw new Error('Username or Password mismatch');
             } else {
-                navigate('/FinancialDashboard')
+                navigate(`/FinancialDashboard/${username}`)
             }
         } catch (error) {
             console.log(error);
@@ -224,7 +224,7 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/" element={<LoginForm />} />
-                <Route path="/FinancialDashboard" element={<FinancialDashboard />} />
+                <Route path="/FinancialDashboard/:username" element={<FinancialDashboard />} />
             </Routes>
         </Router>
     );

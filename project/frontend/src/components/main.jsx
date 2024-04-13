@@ -1,8 +1,10 @@
 import React from 'react';
 import './main.css'; // Import your main CSS file
+import { useParams } from 'react-router-dom';
 
-class FinancialDashboard extends React.Component {
-    render() {
+
+const FinancialDashboard = () => {
+    const { username } = useParams();
         return (
             <div className="dashboard-container">
                 <header className="dashboard-header">
@@ -11,7 +13,7 @@ class FinancialDashboard extends React.Component {
                 </header>
                 <section className="dashboard-details">
                     <div className="account-details">
-                        <h2>Account Details</h2>
+                        <h2>Account for : {username}</h2>
                         <button className="button edit">Edit</button>
                     </div>
                     <div className="financial-summary">
@@ -42,7 +44,7 @@ class FinancialDashboard extends React.Component {
                 </section>
             </div>
         );
-    }
-}
+    };
+
 
 export default FinancialDashboard;
