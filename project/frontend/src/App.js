@@ -2,6 +2,7 @@ import React from 'react';
 import './login.jsx';
 import './login.css';
 
+
 class LoginForm extends React.Component {
   state = {
     isLoginForm: true,
@@ -30,7 +31,6 @@ class LoginForm extends React.Component {
       try {
         await this.signIn(this.state.username, this.state.password);
         console.log('success');
-        // Redirect to main page
       } catch (error) {
         console.log(error);
       }
@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
       try {
         await this.signUpCheck();
         console.log('success');
-        // Redirect to login page
+        this.toggleForm();
       } catch (error) {
         console.log(error);
       }
