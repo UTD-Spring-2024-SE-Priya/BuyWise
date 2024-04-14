@@ -78,6 +78,13 @@
     color: black;
     margin-top: 2rem;
   }
+
+  .logout-button { 
+    
+    background-color: #cf4f2c;
+    width: 25%;
+  }
+
   
   /* Add additional styling as necessary */
   
