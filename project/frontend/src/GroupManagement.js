@@ -1,44 +1,63 @@
-import React from 'react';
-import './GroupManagement.css'; // make sure to create this CSS file
-import { useNavigate , useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'; // Import useParams hook
+import './GroupManagement.css'; // Import your main CSS file
 
-async function GroupManagement() {
-  
-  const { username } = useParams();
-  let jsonData;
-  console.log(username);
+const FinancialDashboard = () => {
+    const [groups, setGroups] = useState([]); // State to store groups data
+    const { username } = useParams(); // Get username from URL params
 
-  try {
-    const data = await fetch(`http://localhost:5050/username/${username}`);
-    jsonData = await data.json();
-    console.log(jsonData);
-  } catch (error) {
-    throw new Error(error);
-  }
+    useEffect(() => {
+        // Fetch groups data asynchronously
+        const fetchGroups = async () => {
+            try {
+                // Perform API call to fetch user data
+                const response = await fetch(`http://localhost:5050/username/${username}`);
+                const userData = await response.json();
 
-  const { groups } = jsonData;
-  const navigate = useNavigate();
+                // Extract groups array from user data
+                const { groups } = userData;
 
-  // Function to handle the back button click
-  const handleBack = () => {
-    navigate(-1);
-  };
+                // Set the groups state with the fetched data
+                setGroups(groups);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
-  return (
-    <div className="group-management-container">
-      <h2>My Groups</h2>
-      <div className="group-list">
-        {groups.map((group) => (
-          <div key={group.name} className="group-item">
-            <h3>{group.name}</h3>
-            <p>Group Balance: {group.balance}</p>
-          </div>
-        ))}
-      </div>
-      <button className="button edit" onClick={() => navigate('/create')}>Create Group</button>
-      <button className="back-btn" onClick={handleBack}>Back</button>
-    </div>
-  );
-}
+        // Call fetchGroups function when component mounts
+        fetchGroups();
+    }, [username]); // Fetch data whenever the username changes
 
-export default GroupManagement;
+    return (
+        <div className="dashboard-container">
+            <nav className="header-section">
+                <div className="account-details">
+                    <h1>{username}</h1>
+                    <button aria-label="Settings" className="settings-button">Settings</button>
+                </div>
+            </nav>
+            <button className="group-button">Group Finance Management</button>
+            <main>
+                <div className="group-list">
+                    {/* Map over the groups array to render each group as a panel */}
+                    {groups.map((group) => (
+                        <div key={group._id} className="group-item">
+                            <h3>{group.name}</h3>
+                            <p>Group Balance: ${group.balance}</p>
+                            {/* Add other group details as needed */}
+                        </div>
+                    ))}
+                </div>
+            </main>
+            <footer className="footer-section">
+                <button className="history-button">History</button>
+            </footer>
+            <nav className="navigation">
+                <button className="back-button">Back</button>
+            </nav>
+        </div>
+    );
+};
+
+export default FinancialDashboard;
+
