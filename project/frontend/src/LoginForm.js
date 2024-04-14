@@ -44,9 +44,9 @@ function LoginForm() {
         e.preventDefault();
         if (isLoginForm) {
             try {
-                navigate('/home');  
                 await signIn(username, password);
                 console.log('success');
+                navigate(`/GroupManagement/${username}`);  
             } catch (error) {
                 console.log(error);
             }
@@ -81,7 +81,6 @@ function LoginForm() {
 
         try {
             const response = await fetch(`http://localhost:5050/user/${username}/${password}`);
-            
             if (response.status === 404) {
                 throw new Error('Username or Password mismatch');
             }

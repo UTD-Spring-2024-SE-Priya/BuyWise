@@ -19,7 +19,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LoginForm />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/GroupManagement" element={<GroupManagement />} />
+        <Route path="/GroupManagement/:username" element={<GroupManagement />} />
         <Route path="/deposit" element={<Deposit />} />
         <Route path="/withdraw" element={<Withdraw />} />
         <Route path="/create" element={<CreateGroup />} />
