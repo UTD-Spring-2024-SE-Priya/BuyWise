@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css'
 
+const username = "Superman"; 
+
 
 function HomePage() {
   const navigate = useNavigate();
@@ -10,17 +12,18 @@ function HomePage() {
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <h1>Individual Account Dashboard</h1>
-        <button className="button finance-management" onClick={() => navigate('/GroupManagement')}>
-          Group Management
+        <h1>Individual Account Dashboard: {username}</h1>
+        <button className="button finance-management" onClick={() => navigate('/group-management')}>
+          Group Finance Management
         </button>
       </header>
       <section className="dashboard-details">
-      <section className="dashboard-details">
         <div className="account-details">
           <h2>Account Details</h2>
-          <button className="button edit" onClick={() => navigate('/Deposit')}>Deposit</button>
-          <button className="button edit" onClick={() => navigate('/Withdraw')}>Withdraw</button>
+          <button className="button" onClick={() => navigate('/edit')}>Edit</button>
+          <button className="button" onClick={() => navigate('/Deposit')}>Deposit</button>
+          <button className="button" onClick={() => navigate('/Withdraw')}>Withdraw</button>
+          <button className="button settings" onClick={() => navigate('/settings')}>Settings</button>
         </div>
         <div className="financial-summary">
           <div className="financial-item balance">
@@ -36,19 +39,18 @@ function HomePage() {
             <div>$1,890.50</div>
           </div>
         </div>
-       
         <div className="chart-container">
           <div className="chart daily-balance-chart">
             <h3>Daily Balance Chart</h3>
-            <div className="chart-placeholder">Daily Balance Chart Here</div>
+            
+            {/* Dummy graph here. Use a library like Chart.js or similar */}
           </div>
           <div className="chart transaction-history">
             <h3>Transaction History</h3>
-            <div className="history-placeholder">History</div>
+            {/* Dummy graph here. Use a library like Chart.js or similar */}
           </div>
         </div>
-        <button className="button back">Back</button>
-      </section>
+        <button className="button back" onClick={() => navigate(-1)}>Back</button>
       </section>
     </div>
   );
