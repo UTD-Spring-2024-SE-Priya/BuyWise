@@ -83,8 +83,6 @@ function LoginForm() {
             
             if (response.status === 404) {
                 throw new Error('Username or Password mismatch');
-            } else {
-                navigate(`/FinancialDashboard/${username}`)
             }
         } catch (error) {
             console.log(error);
