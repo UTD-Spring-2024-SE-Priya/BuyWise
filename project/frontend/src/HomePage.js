@@ -13,7 +13,7 @@ function HomePage() {
     <div className="dashboard-container">
       <header className="dashboard-header">
         <h1>Individual Account Dashboard: {username}</h1>
-        <button className="button finance-management" onClick={() => navigate('/group-management')}>
+        <button className="button finance-management" onClick={() => navigate('/GroupManagement')}>
           Group Finance Management
         </button>
       </header>
