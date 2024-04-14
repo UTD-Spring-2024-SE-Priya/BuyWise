@@ -7,7 +7,10 @@ import Deposit from './Deposit';
 import Withdraw from './Withdraw';
 import CreateGroup from './CreateGroup';
 import LineChart from './LineChart'; // Import LineChart component
-import { Data } from "./Data";
+import LoginForm from './LoginForm';
+import Edit from './Edit'; 
+import Settings from './Settings';
+
 
 export default function App() {
   // Define the chart data somewhere appropriate or fetch it from an API
@@ -27,11 +30,14 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/group-management" element={<GroupManagement />} />
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/GroupManagement" element={<GroupManagement />} />
         <Route path="/deposit" element={<Deposit />} />
         <Route path="/withdraw" element={<Withdraw />} />
-        <Route path="/create-group" element={<CreateGroup />} />
+        <Route path="/create" element={<CreateGroup />} />
+        <Route path="/edit" element={<Edit />} />
+        <Route path="/settings" element={<Settings />} />
         {/* Route for the Line Chart. Adjust the path as needed */}
         <Route path="/line-chart" element={<LineChart chartData={chartData} />} />
         {/* ... other routes ... */}
