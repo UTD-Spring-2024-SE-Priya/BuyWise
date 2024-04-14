@@ -2,13 +2,16 @@ import React from 'react';
 import './login.css';
 import LoginForm from './LoginForm';
 import HomePage from './HomePage'; 
-//import FinancialDashboard from "./components/main"; // Make sure this component exists and is exported
+import Deposit from './Deposit'; 
+import GroupManagement from './GroupManagement';
+import Withdraw from './Withdraw';
+import CreateGroup from './CreateGroup';
 import {
     BrowserRouter as Router,
     Routes,
     Route
 } from "react-router-dom"; // Fixed the import statement
-import GroupManagement from './GroupManagement';
+
 
 function App() {
   return (
@@ -18,6 +21,8 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/GroupManagement" element={<GroupManagement />} />
         <Route path="/Deposit" element={<Deposit />} />
+        <Route path="/Withdraw" element={<Withdraw />} />
+        <Route path="/create" element={<CreateGroup />} />
         {/* If you have a FinancialDashboard Route, uncomment below */}
         {/* <Route path="/dashboard" element={<FinancialDashboard />} /> */}
       </Routes>

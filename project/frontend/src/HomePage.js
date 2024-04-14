@@ -20,7 +20,7 @@ function HomePage() {
         <div className="account-details">
           <h2>Account Details</h2>
           <button className="button edit" onClick={() => navigate('/Deposit')}>Deposit</button>
-          <button className="button edit">Widthdraw</button>
+          <button className="button edit" onClick={() => navigate('/Withdraw')}>Withdraw</button>
         </div>
         <div className="financial-summary">
           <div className="financial-item balance">

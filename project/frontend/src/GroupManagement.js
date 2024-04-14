@@ -29,7 +29,7 @@ function GroupManagement() {
           </div>
         ))}
       </div>
-      <button className="create-group-btn">Create Group</button>
+      <button className="button edit" onClick={() => navigate('/create')}>Create Group</button>
       <button className="back-btn" onClick={handleBack}>Back</button>
     </div>
   );

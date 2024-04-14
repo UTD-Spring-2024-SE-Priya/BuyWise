@@ -1,8 +1,13 @@
 import React from 'react';
 import './Deposit.css'; // Ensure that the path to your CSS file is correct
+import { useNavigate } from 'react-router-dom';
 
 function Deposit() {
+    const navigate = useNavigate();
   // You would add state and event handlers here as needed
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="deposit-wrapper">
@@ -28,7 +33,7 @@ function Deposit() {
           </div>
           <button type="submit" className="deposit-button">Add Deposit</button>
         </form>
-        <button className="back-button">Back</button>
+        <button className="back-btn" onClick={handleBack}>Back</button>
       </div>
     </div>
   );
