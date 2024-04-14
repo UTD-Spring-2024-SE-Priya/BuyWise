@@ -13,11 +13,15 @@ function Settings() {
   const handleBack = () => {
     navigate(-1);
   };
+  const handleBack1 = () => {
+    navigate(-2);
+  };
 
   return (
     <div className="finance-page">
       <header className="finance-header">
         <h1>Personal Finance: Settings</h1>
+        <button className="logout-button" onClick={() =>handleBack1()}>Log Out</button>
       </header>
       <div className="finance-info">
         <div className="finance-item balance">
