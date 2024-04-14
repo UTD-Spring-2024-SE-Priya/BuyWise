@@ -1,33 +1,41 @@
+// App.js
 import React from 'react';
-import './login.css';
-import LoginForm from './LoginForm';
-import HomePage from './HomePage'; 
-import Deposit from './Deposit'; 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './HomePage';
 import GroupManagement from './GroupManagement';
+import Deposit from './Deposit';
 import Withdraw from './Withdraw';
 import CreateGroup from './CreateGroup';
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route
-} from "react-router-dom"; // Fixed the import statement
+import LineChart from './LineChart'; // Import LineChart component
+import { Data } from "./Data";
 
+export default function App() {
+  // Define the chart data somewhere appropriate or fetch it from an API
+  const chartData = {
+    labels: ["2016", "2017", "2018", "2019", "2020"],
+    datasets: [
+      {
+        label: 'Users Gained',
+        data: [12, 19, 3, 5, 2, 3],
+        fill: false,
+        backgroundColor: 'rgb(75, 192, 192)',
+        borderColor: 'rgba(75, 192, 192, 0.2)',
+      },
+    ],
+  };
 
-function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginForm />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/GroupManagement" element={<GroupManagement />} />
-        <Route path="/Deposit" element={<Deposit />} />
-        <Route path="/Withdraw" element={<Withdraw />} />
-        <Route path="/create" element={<CreateGroup />} />
-        {/* If you have a FinancialDashboard Route, uncomment below */}
-        {/* <Route path="/dashboard" element={<FinancialDashboard />} /> */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/group-management" element={<GroupManagement />} />
+        <Route path="/deposit" element={<Deposit />} />
+        <Route path="/withdraw" element={<Withdraw />} />
+        <Route path="/create-group" element={<CreateGroup />} />
+        {/* Route for the Line Chart. Adjust the path as needed */}
+        <Route path="/line-chart" element={<LineChart chartData={chartData} />} />
+        {/* ... other routes ... */}
       </Routes>
     </Router>
   );
 }
-
-export default App; // Removed the duplicate export default statement

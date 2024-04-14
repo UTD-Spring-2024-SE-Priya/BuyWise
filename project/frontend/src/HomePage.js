@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css'
+import LineChart from './LineChart';
 
 const username = "Superman"; 
 
@@ -42,12 +43,11 @@ function HomePage() {
         <div className="chart-container">
           <div className="chart daily-balance-chart">
             <h3>Daily Balance Chart</h3>
-            
-            {/* Dummy graph here. Use a library like Chart.js or similar */}
+            <LineChart></LineChart>
           </div>
           <div className="chart transaction-history">
             <h3>Transaction History</h3>
-            {/* Dummy graph here. Use a library like Chart.js or similar */}
+            <LineChart></LineChart>
           </div>
         </div>
         <button className="button back" onClick={() => navigate(-1)}>Back</button>
