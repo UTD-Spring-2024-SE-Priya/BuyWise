@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams hook
+import { useParams , useNavigate } from 'react-router-dom'; // Import useParams hook
 import './GroupManagement.css'; // Import your main CSS file
 
 const FinancialDashboard = () => {
     const [groups, setGroups] = useState([]); // State to store groups data
     const { username } = useParams(); // Get username from URL params
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Fetch groups data asynchronously
@@ -41,16 +42,16 @@ const FinancialDashboard = () => {
                 <div className="group-list">
                     {/* Map over the groups array to render each group as a panel */}
                     {groups.map((group) => (
-                        <div key={group._id} className="group-item">
+                        <button key={group._id} className="group-item">
                             <h3>{group.name}</h3>
                             <p>Group Balance: ${group.balance}</p>
                             {/* Add other group details as needed */}
-                        </div>
+                        </button>
                     ))}
                 </div>
             </main>
             <footer className="footer-section">
-                <button className="history-button">History</button>
+                <button className="create-group-button" onClick={() => navigate(`./create`)}>Create Group</button>
             </footer>
             <nav className="navigation">
                 <button className="back-button">Back</button>
