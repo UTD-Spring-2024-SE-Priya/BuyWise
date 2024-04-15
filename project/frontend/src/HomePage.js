@@ -22,7 +22,7 @@ function HomePage() {
         <div className="account-details">
           <h2>Account Details</h2>
           <button className="button" onClick={() => navigate('/edit')}>Edit</button>
-          <button className="button" onClick={() => navigate('/Deposit')}>Deposit</button>
+          <button className="button" onClick={() => navigate(`/deposit/${username}/${groupID}/${balance}`)}>Deposit</button>
           <button className="button" onClick={() => navigate('/Withdraw')}>Withdraw</button>
           <button className="button settings" onClick={() => navigate('/settings')}>Settings</button>
         </div>
