@@ -173,7 +173,6 @@ const addGroup = async (username , accountName , balance, users) => {
           placeholder="Add users by username"
           value={userEmails}
           onChange={(e) => setUserEmails(e.target.value)}
-          required
         />
         <button type="submit" className="create-group-button">Create Group</button>
       </form>
