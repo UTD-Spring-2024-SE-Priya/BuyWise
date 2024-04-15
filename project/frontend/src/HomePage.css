@@ -1,0 +1,137 @@
+.dashboard-container {
+  background: #fff;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.edit {
+  background-color: #f0f0f0; /* Light grey background for edit */
+  margin-right: 10px;
+}
+
+.finance-management {
+  background: linear-gradient(45deg, #6a11cb 0%, #2575fc 100%);
+  color: #fff;
+}
+
+.dashboard-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.account-details h2 {
+  font-size: 1.2rem;
+  color: #333;
+  flex-grow: 1;
+}
+
+.financial-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.financial-item {
+  background: #f0f0f0;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.financial-item.balance {
+  background-color: #e0ecff; /* Light blue background */
+}
+
+.financial-item.income {
+  background-color: #e2ffe0; /* Light green background */
+}
+
+.financial-item.expenses {
+  background-color: #ffe0e0; /* Light red background */
+}
+
+.chart-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.chart {
+  background: #f0f0f0;
+  padding: 1rem;
+  border-radius: 5px;
+  min-height: 200px; /* Adjust based on your content */
+}
+
+
+
+
+
+.back-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  background: none;
+  color: #333;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
+  align-self: start;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .account-details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .financial-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-container {
+    grid-template-columns: 1fr;
+  }
+
+
+}
+
+/* Apply additional modern styling tweaks as needed */

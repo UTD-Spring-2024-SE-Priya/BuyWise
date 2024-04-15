@@ -1,0 +1,100 @@
+.dashboard-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+
+.finance-management {
+    background-color: #4caf50;
+}
+
+.dashboard-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  text-align: center;
+}
+
+.account-details {
+  grid-column: 1 / 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.financial-summary {
+  display: flex;
+  justify-content: space-between;
+}
+
+.financial-item {
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.balance {
+  background-color: #e8f5e9; 
+}
+
+.income {
+  background-color: #e3f2fd; 
+}
+
+.expenses {
+  background-color: #ffebee; 
+}
+
+.chart-container {
+  grid-column: 1 / 4;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chart {
+  width: 100%;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.chart-placeholder,
+.history-placeholder {
+  height: 150px;
+  line-height: 150px;
+  text-align: center;
+  background: #eceff1; 
+  border-radius: 5px;
+}
+
+.edit {
+  background-color: #2196f3; 
+}
+
+.back {
+  background-color: #f44336;
+    grid-column: 1 / 4;
+    margin-top: 20px;
+}
