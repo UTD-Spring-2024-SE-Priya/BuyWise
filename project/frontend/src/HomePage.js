@@ -7,14 +7,14 @@ import './HomePage.css'
 
 function HomePage() {
   const navigate = useNavigate();
-  const { username , groupID, balance } = useParams();
+  const { username , groupID, balance , groupName } = useParams();
 
 
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
         <h1>Account for: {username}</h1>
-        <button className="button finance-management" onClick={() => navigate(-1)}>
+        <button className="button finance-management" onClick={() => navigate(`../GroupManagement/${username}`)}>
           back to groups
         </button>
       </header>
@@ -22,8 +22,8 @@ function HomePage() {
         <div className="account-details">
           <h2>Account Details</h2>
           <button className="button" onClick={() => navigate('/edit')}>Edit</button>
-          <button className="button" onClick={() => navigate(`/deposit/${username}/${groupID}/${balance}`)}>Deposit</button>
-          <button className="button" onClick={() => navigate('/Withdraw')}>Withdraw</button>
+          <button className="button" onClick={() => navigate(`/deposit/${username}/${groupID}/${balance}/${groupName}`)}>Deposit</button>
+          <button className="button" onClick={() => navigate(`/Withdraw/${username}/${groupID}/${balance}/${groupName}`)}>Withdraw</button>
           <button className="button settings" onClick={() => navigate('/settings')}>Settings</button>
         </div>
         <div className="financial-summary">

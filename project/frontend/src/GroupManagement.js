@@ -42,7 +42,7 @@ const FinancialDashboard = () => {
                 <div className="group-list">
                     {/* Map over the groups array to render each group as a panel */}
                     {groups.map((group) => (
-                        <button key={group._id} className="group-item" onClick={() => navigate(`../home/${username}/${group._id}/${group.balance}`)}>
+                        <button key={group._id} className="group-item" onClick={() => navigate(`../home/${username}/${group._id}/${group.balance}/${group.name}`)}>
                             <h3>{group.name}</h3>
                             <p>Group Balance: ${group.balance}</p>
                             {/* Add other group details as needed */}
