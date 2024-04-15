@@ -1,21 +1,21 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './HomePage.css'
 
 
-const username = "Superman"; 
 
 
 function HomePage() {
   const navigate = useNavigate();
+  const { username , groupID, balance } = useParams();
 
 
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <h1>Individual Account Dashboard: {username}</h1>
-        <button className="button finance-management" onClick={() => navigate('/GroupManagement')}>
-          Group Finance Management
+        <h1>Account for: {username}</h1>
+        <button className="button finance-management" onClick={() => navigate(-1)}>
+          back to groups
         </button>
       </header>
       <section className="dashboard-details">
@@ -29,7 +29,7 @@ function HomePage() {
         <div className="financial-summary">
           <div className="financial-item balance">
             <label>Account Balance</label>
-            <div>$12,345.67</div>
+            <div>${balance}</div>
           </div>
           <div className="financial-item income">
             <label>Monthly Income</label>
