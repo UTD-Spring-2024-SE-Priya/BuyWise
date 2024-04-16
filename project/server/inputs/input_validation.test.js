@@ -16,7 +16,7 @@ describe('Input Validation', () => {
 
     test('Invalid TestCase, password does not match valid naming convention' , async () => {
       const invalidInput = ['username99' , 'Password' , 'Password2!'];
-      await expect(validateUserRegistration(...invalidInput)).rejects.toThrow("Password must be 8-14 characters, contain at least one number, one uppercase letter, one lowercase letter, one special character, and no spaces");
+      await expect(validateUserRegistration(...invalidInput)).rejects.toThrow("Password must be 8+ characters, contain at least one number, one uppercase letter, one lowercase letter, one special character, and no spaces");
     }); 
 
     test('Invalid TestCase, password exception' , async () => {

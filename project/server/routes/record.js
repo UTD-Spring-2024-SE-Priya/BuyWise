@@ -166,9 +166,28 @@ router.get("/find/user/group/:group", async (req, res) => {
 
 
 
+router.patch("/reset-password", async (req, res) => {
+  const { username, newPassword } = req.body;
 
+  try {
 
+    const updateResult = await db.collection("allUsers").updateOne(
+      { username },
+      { $set: { password: newPassword } }
+    );
 
+    if (updateResult.matchedCount === 0) {
+        throw new Error("User not found");
+    }
+
+    res.status(200).json({ message: "Password has reset successfully" });
+  } catch (error) {
+
+    console.error("Error resetting password:", error);
+    res.status(400).json({ message: error.message });
+
+  }
+});
 
 
 export default router;
