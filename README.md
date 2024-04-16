@@ -1,5 +1,5 @@
 Run `npm i react-router-dom` in /frontend file
 
-Run `npm start`
+then run `npm start` in /frontend to start the frontend 
 
-Run `npm start` in /server
+Run `npm start` in /server to start the backend
