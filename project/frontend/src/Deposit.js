@@ -14,7 +14,7 @@ function Deposit() {
   const handleDeposit = async e => {
     e.preventDefault();
     try {
-      //await deposit(amountRef.current.value , groupID);
+      await deposit(amountRef.current.value , groupID);
       console.log("success");
       navigate(`../home/${username}/${groupID}/${parseFloat(balance) + parseFloat(amountRef.current.value)}/${groupName}`);
     } catch (error) {
