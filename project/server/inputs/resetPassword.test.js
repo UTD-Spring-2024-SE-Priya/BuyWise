@@ -1,5 +1,7 @@
 import { resetPassword } from "./resetPassword";
-import db from "project/server/db/connection.js";
+import db from "../db/connection.js";
+import { validateUserRegistration } from './input_validation';
+
 
 
 beforeAll(async () => {
@@ -31,5 +33,15 @@ describe("Reset Password Function", () => {
             .rejects
             .toThrow("Username and new password are required");
     });
+
+    test('Successfully resets password with valid new and confirm passwords', async () => {
+        const username = 'testUser';
+        const newPassword = 'NewPassword1!';
+        const confirmPassword = 'NewPassword1!';
+    
+        const result = await resetPassword(username, newPassword, confirmPassword);
+        expect(result).toEqual('Password has been reset successfully');
+      });
+
 });
 

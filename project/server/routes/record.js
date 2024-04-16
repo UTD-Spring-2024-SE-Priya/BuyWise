@@ -1,4 +1,5 @@
 import express, { response } from "express";
+import { validatePassword } from "../inputs/input_validation.js";
 
 // This will help us connect to the database
 import db from "../db/connection.js";
@@ -166,9 +167,36 @@ router.get("/find/user/group/:group", async (req, res) => {
 
 
 
+router.patch("/reset-password", async (req, res) => {
+  const { username, newPassword, confirmPassword } = req.body;
 
+  try {
 
+    validatePassword(newPassword, confirmPassword);
+    console.log(`Updating password for username: ${username}`);
 
+    //proceed w/ lookup if validation successful
+    const updateResult = await db.collection("allUsers").updateOne(
+      { username },
+      { $set: { password: newPassword } }
+    );
+
+    if (updateResult.matchedCount === 0) {
+        throw new Error("User not found");
+    }
+
+    /*if (updateResult.modifiedCount === 0) {
+        throw new Error("Password update failed");
+    }*/
+
+    res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+
+    console.error("Error resetting password:", error);
+    res.status(400).json({ message: error.message });
+
+  }
+});
 
 
 export default router;

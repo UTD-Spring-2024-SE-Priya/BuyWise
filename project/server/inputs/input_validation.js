@@ -34,7 +34,7 @@ const validateUsername = async (username) => {
   
 
   // Function to validate the password and confirm password
-  const validatePassword = (password, confirmPassword) => {
+  export const validatePassword = (password, confirmPassword) => {
 
     if (!password || password.trim() === '') {
       throw new Error("Password cannot be empty");
