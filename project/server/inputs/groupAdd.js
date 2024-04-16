@@ -59,7 +59,7 @@ const checkUsernameExists = async (username) => {
 }
 
 
-async function addUserGroup(username , accountName , balance , id){
+async function addUserGroup(username , accountName , balance , id , userList){
    
 
     try {
@@ -73,6 +73,7 @@ async function addUserGroup(username , accountName , balance , id){
                 "name" : accountName,
                 _id : id,
                 "balance" : parseFloat(balance),
+                "users" : userList
                 }
             })
         });
@@ -97,7 +98,7 @@ export const addGroup = async (username , accountName , balance, users) => {
         let ID = new ObjectId();
         let allUsers = userList.split(",");
         for (const user of allUsers){
-            await addUserGroup(user , accountName , balance  , ID);
+            await addUserGroup(user , accountName , balance  , ID , userList);
         }
         return ID;
     } catch (error) {
