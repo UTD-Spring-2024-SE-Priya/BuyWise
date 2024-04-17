@@ -34,18 +34,17 @@ const FinancialDashboard = () => {
             <nav className="header-section">
                 <div className="account-details">
                     <h1>{username}</h1>
-                    <button aria-label="Settings" className="settings-button">Settings</button>
                 </div>
             </nav>
-            <button className="group-button">Group Finance Management</button>
+            <button className="group-button">My groups</button>
             <main>
                 <div className="group-list">
                     {/* Map over the groups array to render each group as a panel */}
                     {groups.map((group) => (
-                        <button key={group._id} className="group-item" onClick={() => navigate(`../home/${username}/${group._id}/${group.balance}/${group.name}`)}>
+                        <button key={group._id} className="group-item" onClick={() => navigate(`../home/${username}/${group._id}/${group.balance}/${group.name}/${group.users.replace(/,/g, ', ')}`)}>
                             <h3>{group.name}</h3>
                             <p>Group Balance: ${group.balance}</p>
-                            {/* Add other group details as needed */}
+                            <h5>Users : {group.users.replace(/,/g, ', ')}</h5>
                         </button>
                     ))}
                 </div>
