@@ -18,9 +18,6 @@ const deposit = async (depositAmount, groupID) => {
         const data = await fetch(`http://localhost:5050/find/user/group/${groupID}`);
         const json = await data.json();
         const initialBalance = parseFloat(json.groups[0].balance);
-        if (initialBalance < parseFloat(depositAmount)){
-            throw new Error("Not enough balance in your account");
-        }
         try {
             const response = await fetch(`http://localhost:5050/update/balance/${json.groups[0]._id}`, {
                 method : "PATCH",
@@ -32,7 +29,7 @@ const deposit = async (depositAmount, groupID) => {
                 })
             });
             if (!response.ok){
-                throw new Error("Withdraw unsuccessful");
+                throw new Error("Deposit unsuccessful");
             }
         } catch (error) {
             console.log(error);

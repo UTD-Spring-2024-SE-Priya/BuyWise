@@ -18,10 +18,10 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LoginForm />} />
-        <Route path="/home/:username/:groupID/:balance" element={<HomePage />} />
+        <Route path="/home/:username/:groupID/:balance/:groupName/:groupUsers" element={<HomePage />} />
         <Route path="/GroupManagement/:username" element={<GroupManagement />} />
-        <Route path="/deposit" element={<Deposit />} />
-        <Route path="/withdraw" element={<Withdraw />} />
+        <Route path="/deposit/:username/:groupID/:balance/:groupName/:groupUsers" element={<Deposit />} />
+        <Route path="/withdraw/:username/:groupID/:balance/:groupName/:groupUsers" element={<Withdraw />} />
         <Route path="/GroupManagement/:username/create" element={<CreateGroup />} />
         <Route path="/edit" element={<Edit />} />
         <Route path="/settings" element={<Settings />} />

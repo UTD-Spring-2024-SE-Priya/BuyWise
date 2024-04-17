@@ -166,9 +166,61 @@ router.get("/find/user/group/:group", async (req, res) => {
 
 
 
+router.patch("/reset-password", async (req, res) => {
+  const { username, newPassword } = req.body;
+
+  try {
+
+    const updateResult = await db.collection("allUsers").updateOne(
+      { username },
+      { $set: { password: newPassword } }
+    );
+
+    if (updateResult.matchedCount === 0) {
+        throw new Error("User not found");
+    }
+
+    res.status(200).json({ message: "Password has reset successfully" });
+  } catch (error) {
+
+    console.error("Error resetting password:", error);
+    res.status(400).json({ message: error.message });
+
+  }
+});
+
+router.patch("/add/transaction/:groupID" , async (req , res) => {
+  const transaction  = req.body.transaction;
+  const groupID = req.params.groupID;
+
+  try {
+
+    const collection = db.collection("allUsers");
+
+    const query = {
+      "groups._id" : groupID
+    }
+
+    const update = {
+      $push : {
+        "groups.$.transactions" : transaction
+      }
+    };
+
+    const updateDb = await collection.updateMany(query , update);
+
+    if (updateDb.modifiedCount === 0){
+      throw new Error("Did not add transaction");
+    }
+    
+    res.status(200).send(updateDb);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Failed to update");
+  }
 
 
-
+});
 
 
 export default router;

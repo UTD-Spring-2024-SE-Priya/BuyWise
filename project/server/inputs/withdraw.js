@@ -9,9 +9,6 @@ if (withdrawAmount < 0){
     throw new Error("Value cannot be negative");
 }
 
-
-
-
 // Check if withdrawAmount is a valid number
 if (!/^\d+(\.\d+)?$/.test(withdrawAmount.trim())) {
     throw new Error("Value is not a number");
