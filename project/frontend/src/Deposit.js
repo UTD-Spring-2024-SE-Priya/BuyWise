@@ -4,7 +4,7 @@ import { useNavigate , useParams } from 'react-router-dom';
 
 function Deposit() {
     const navigate = useNavigate();
-    const { username , groupID , balance , groupName , groupUsers } = useParams();
+    const { username , groupID , groupName } = useParams();
     const amountRef = useRef(null);
   // You would add state and event handlers here as needed
   const handleBack = () => {
@@ -16,7 +16,7 @@ function Deposit() {
     try {
       await deposit(amountRef.current.value , groupID);
       console.log("success");
-      navigate(`../home/${username}/${groupID}/${parseFloat(balance) + parseFloat(amountRef.current.value)}/${groupName}/${groupUsers}`);
+      navigate(`../home/${username}/${groupID}`);
     } catch (error) {
       console.log(error);
     }
