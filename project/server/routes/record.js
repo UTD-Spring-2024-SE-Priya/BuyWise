@@ -203,7 +203,10 @@ router.patch("/add/transaction/:groupID" , async (req , res) => {
 
     const update = {
       $push : {
-        "groups.$.transactions" : transaction
+        "groups.$.transactions" : {
+          $each: [transaction],
+          $position : 0
+        }
       }
     };
 
