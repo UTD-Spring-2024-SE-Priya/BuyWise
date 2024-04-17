@@ -73,7 +73,8 @@ async function addUserGroup(username , accountName , balance , id , userList){
                 "name" : accountName,
                 _id : id,
                 "balance" : parseFloat(balance),
-                "users" : userList
+                "users" : userList,
+                transactions : []
                 }
             })
         });
