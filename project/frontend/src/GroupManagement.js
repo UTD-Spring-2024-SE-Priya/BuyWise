@@ -33,10 +33,10 @@ const FinancialDashboard = () => {
         <div className="dashboard-container">
             <nav className="header-section">
                 <div className="account-details">
-                    <h1>{username}</h1>
+                    <h1>User: {username}</h1>
                 </div>
             </nav>
-            <button className="group-button">My groups</button>
+            <h2 className="header">My Groups</h2>
             <main>
                 <div className="group-list">
                     {/* Map over the groups array to render each group as a panel */}

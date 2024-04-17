@@ -48,7 +48,16 @@ const HomePage = () => {
                     <label>Account Balance</label>
                     <div>${groups.length > 0 && groups[0].balance}</div>
                 </div>
-                {/* Render each group */}
+                <div className="financial-item transaction">
+                    <label>Transaction history</label>
+                        
+                            {groups.length > 0 && groups[0].transactions.map((transaction, index) => (
+                                <menu key={index}>
+                                    <div>${transaction}</div>
+                                </menu>
+                            ))}
+                        
+                </div>
             </div>
         </section>
     </div>
