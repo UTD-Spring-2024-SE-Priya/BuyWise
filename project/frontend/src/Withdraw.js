@@ -6,6 +6,7 @@ function Withdraw() {
     const navigate = useNavigate();
     const { username , groupID , groupName } = useParams();
     const amountRef = useRef(null);
+    const date = useRef(null);
     // You would add state and event handlers here as needed
     const handleBack = () => {
       navigate(-1);
@@ -71,8 +72,10 @@ function Withdraw() {
         <h2>Withdraw from account: {groupName}</h2>
         <form className="withdraw-form">
           <div className="form-group">
-            <label htmlFor="withdraw-amount">Amount</label>
-            <input type="number" id="withdraw-amount" name="withdraw-amount" ref={amountRef} required />
+            <label htmlFor="amount">Amount</label>
+            <input type="number" id="amount" name="amount" placeholder="Ex: 85" ref={amountRef} required />
+            <label htmlFor="date">Date</label>
+            <input type="string" id="date" name="date" placeholder="Ex: May 10" ref={date} required />
           </div>
           <button type="submit" className="withdraw-button" onClick={handleWithdraw} >Withdraw </button>
         </form>

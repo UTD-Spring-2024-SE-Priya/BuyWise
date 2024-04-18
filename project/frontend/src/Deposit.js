@@ -6,6 +6,7 @@ function Deposit() {
     const navigate = useNavigate();
     const { username , groupID , groupName } = useParams();
     const amountRef = useRef(null);
+    const date = useRef(null);
   // You would add state and event handlers here as needed
   const handleBack = () => {
     navigate(-1);
@@ -71,7 +72,9 @@ function Deposit() {
         <form className="deposit-form">
           <div className="form-group">
             <label htmlFor="amount">Amount</label>
-            <input type="number" id="amount" name="amount" ref={amountRef} required />
+            <input type="number" id="amount" name="amount" placeholder="Ex: 85" ref={amountRef} required />
+            <label htmlFor="date">Date</label>
+            <input type="string" id="date" name="date" placeholder="Ex: May 10" ref={date} required />
           </div>
           <button type="submit" className="deposit-button" onClick={handleDeposit}>Add Deposit</button>
         </form>
