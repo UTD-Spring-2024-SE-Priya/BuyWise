@@ -1,13 +1,14 @@
-import React, { useRef } from 'react';
-import './Deposit.css'; // Ensure that the path to your CSS file is correct
-import { useNavigate , useParams } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import './Deposit.css';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Deposit() {
-    const navigate = useNavigate();
-    const { username , groupID , groupName } = useParams();
-    const amountRef = useRef(null);
-    const date = useRef(null);
-  // You would add state and event handlers here as needed
+  const navigate = useNavigate();
+  const { username, groupID, groupName } = useParams();
+  const amountRef = useRef(null);
+  const [description, setDescription] = useState('');
+  const [dateValue, setDateValue] = useState(''); 
+
   const handleBack = () => {
     navigate(-1);
   };
@@ -15,7 +16,7 @@ function Deposit() {
   const handleDeposit = async e => {
     e.preventDefault();
     try {
-      await deposit(amountRef.current.value , groupID);
+      await deposit(amountRef.current.value, description, groupID);
       console.log("success");
       navigate(`../home/${username}/${groupID}`);
     } catch (error) {
@@ -23,47 +24,41 @@ function Deposit() {
     }
   }
 
-  const deposit = async (depositAmount, groupID) => {
+  const handleDateChange = (event) => {
+    setDateValue(event.target.value);
+  };
 
-    if (!depositAmount){
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+
+  const deposit = async (depositAmount, description, groupID) => {
+    if (!depositAmount) {
       throw new Error("Value cannot be empty");
     }
-
-    if (depositAmount < 0){
-        throw new Error("Value cannot be negative");
+    if (depositAmount < 0) {
+      throw new Error("Value cannot be negative");
     }
-    let data = null;
-    
     try {  
-        const data = await fetch(`http://localhost:5050/find/user/group/${groupID}`);
-        const json = await data.json();
-        const initialBalance = parseFloat(json.groups[0].balance);
-        console.log(json);
-        try {
-            const response = await fetch(`http://localhost:5050/update/balance/${json.groups[0]._id}`, {
-                method : "PATCH",
-                headers : {
-                    "Content-type" : "application/json"
-                },
-                body: JSON.stringify({
-                    "balance" : initialBalance + parseFloat(depositAmount)
-                })
-            });
-            if (!response.ok){
-                throw new Error("Deposit unsuccessful");
-            }
-        } catch (error) {
-            console.log(error);
-            throw new Error(error);
-        }
-       
+      const response = await fetch(`http://localhost:5050/find/user/group/${groupID}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch group data");
+      }
+      const json = await response.json();
+      const initialBalance = parseFloat(json.groups[0].balance);
+      const updateResponse = await fetch(`http://localhost:5050/update/balance/${json.groups[0]._id}`, {
+          method: "PATCH",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({ "balance": initialBalance + parseFloat(depositAmount) })
+      });
+      if (!updateResponse.ok) {
+        throw new Error("Deposit unsuccessful");
+      }
     } catch (error) {
-        throw new Error(error);
+      console.error(error);
+      throw error;
     }
-};
-
-
-
+  };
 
   return (
     <div className="deposit-wrapper">
@@ -74,7 +69,9 @@ function Deposit() {
             <label htmlFor="amount">Amount</label>
             <input type="number" id="amount" name="amount" placeholder="Ex: 85" ref={amountRef} required />
             <label htmlFor="date">Date</label>
-            <input type="string" id="date" name="date" placeholder="Ex: May 10" ref={date} required />
+            <input type="date" id="date" name="date" value={dateValue} onChange={handleDateChange} required />
+            <label htmlFor="description">Description</label>
+            <input type="text" id="description" name="description" value={description} onChange={handleDescriptionChange} placeholder="Ex: Food for event" />
           </div>
           <button type="submit" className="deposit-button" onClick={handleDeposit}>Add Deposit</button>
         </form>
