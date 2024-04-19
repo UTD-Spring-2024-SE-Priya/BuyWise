@@ -6,12 +6,14 @@ function Withdraw() {
   const navigate = useNavigate();
   const { username, groupID, groupName } = useParams();
   const amountRef = useRef(null); // Still using ref here for simplicity in this specific use case
+  const [description, setDescription] = useState('');
   const [date, setDate] = useState(''); // Using controlled component for date
 
   const handleBack = () => {
     navigate(-1);
   };
 
+ 
   const handleWithdraw = async e => {
     e.preventDefault();
     const withdrawAmount = amountRef.current.value;
@@ -21,6 +23,7 @@ function Withdraw() {
     }
     try {
       await withdraw(withdrawAmount, groupID);
+      await transaction(date , amountRef.current.value , description , groupID , username);
       console.log("Withdrawal successful");
       navigate(`../home/${username}/${groupID}`);
     } catch (error) {
@@ -31,6 +34,10 @@ function Withdraw() {
 
   const handleDateChange = (event) => {
     setDate(event.target.value);
+  };
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
   };
 
   const withdraw = async (withdrawAmount, groupID) => {
@@ -60,6 +67,38 @@ function Withdraw() {
     }
   };
 
+  const transaction = async (date , amount , description , groupID , username) => {
+
+    console.log(date);
+    console.log(amount);
+    console.log(description);
+    console.log(groupID);
+    console.log(username);
+
+
+    let transactionToAdd = date + " : " + username +  " deposited " + amount + " : " + description;
+
+  
+    try {
+      const response = await fetch(`http://localhost:5050/add/transaction/${groupID}`, {
+        method : "PATCH",
+        headers : {
+          "Content-type" : "application/json"
+        },
+        body : JSON.stringify({
+          "transaction" : transactionToAdd
+        })
+      });
+  
+      if (!response.ok){
+        throw new Error("Transaction add unsuccessful");
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  }
+
   return (
     <div className="withdraw-wrapper">
       <div className="withdraw-event">
@@ -70,6 +109,8 @@ function Withdraw() {
             <input type="number" id="amount" name="amount" placeholder="Ex: 85" ref={amountRef} required />
             <label htmlFor="date">Date</label>
             <input type="date" id="date" name="date" value={date} onChange={handleDateChange} required />
+            <label htmlFor="description">Description</label>
+            <input type="text" id="description" name="description" value={description} onChange={handleDescriptionChange} placeholder="Ex: Food for event" />
           </div>
           <button type="submit" className="withdraw-button" onClick={handleWithdraw}>Withdraw</button>
         </form>

@@ -53,7 +53,7 @@ const HomePage = () => {
                         
                             {groups.length > 0 && groups[0].transactions.map((transaction, index) => (
                                 <menu key={index}>
-                                    <div>${transaction}</div>
+                                    <div>{transaction}</div>
                                 </menu>
                             ))}
                         

@@ -16,10 +16,12 @@ function Deposit() {
   const handleDeposit = async e => {
     e.preventDefault();
     try {
-      await deposit(amountRef.current.value, description, groupID);
+      await deposit(amountRef.current.value, groupID);
+      await transaction(dateValue , amountRef.current.value , description , groupID , username);
       console.log("success");
       navigate(`../home/${username}/${groupID}`);
     } catch (error) {
+      alert("Deposit failed : " + error.message);
       console.log(error);
     }
   }
@@ -32,7 +34,7 @@ function Deposit() {
     setDescription(event.target.value);
   };
 
-  const deposit = async (depositAmount, description, groupID) => {
+  const deposit = async (depositAmount, groupID) => {
     if (!depositAmount) {
       throw new Error("Value cannot be empty");
     }
@@ -59,6 +61,38 @@ function Deposit() {
       throw error;
     }
   };
+
+  const transaction = async (date , amount , description , groupID , username) => {
+
+    console.log(date);
+    console.log(amount);
+    console.log(description);
+    console.log(groupID);
+    console.log(username);
+
+
+    let transactionToAdd = date + " : " + username +  " deposited " + amount + " : " + description;
+
+  
+    try {
+      const response = await fetch(`http://localhost:5050/add/transaction/${groupID}`, {
+        method : "PATCH",
+        headers : {
+          "Content-type" : "application/json"
+        },
+        body : JSON.stringify({
+          "transaction" : transactionToAdd
+        })
+      });
+  
+      if (!response.ok){
+        throw new Error("Transaction add unsuccessful");
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  }
 
   return (
     <div className="deposit-wrapper">
