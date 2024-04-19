@@ -137,6 +137,7 @@ const addGroup = async (username , accountName , balance, users) => {
       console.log("success");
       navigate(-1);
     } catch (error) {
+      alert("Adding account error:" + error.message)
       console.log(error);
     }
     
