@@ -48,6 +48,7 @@ function LoginForm() {
                 console.log('success');
                 navigate(`/GroupManagement/${username}`);  
             } catch (error) {
+                alert('Log in failed: ' + error.message);
                 console.log(error);
             }
         } else {
@@ -56,6 +57,7 @@ function LoginForm() {
                 console.log('success');
                 toggleForm();
             } catch (error) {
+                alert('Sign up failed: ' + error.message);
                 console.log(error);
             }
         }
