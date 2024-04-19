@@ -15,22 +15,28 @@
   
   .create-group-form input,
   .create-group-form textarea {
-    width: calc(100% - 20px);
+    width: calc(100%);
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 1rem;
   }
-  
-  .create-group-form textarea {
+
+.create-group-form textarea {
     resize: vertical; /* Allows vertical resizing, you could set this to 'none' */
-  }
+    width: calc(100%);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
   
   .create-group-button,
   .back-button {
     width: 100%;
-    padding: 10px 20px;
+    padding: 10px;
     margin-top: 10px;
     border-radius: 5px;
     border: none;
@@ -42,12 +48,7 @@
     background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
     color: white;
   }
-  
-  .back-button {
-    background: none;
-    color: #333;
-    border: 1px solid #ccc;
-  }
+ 
   
   /* Handle any additional styling or responsiveness as needed */
   

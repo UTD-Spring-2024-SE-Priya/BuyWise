@@ -40,7 +40,7 @@ const HomePage = () => {
                 <button className="button" onClick={() => navigate(`/deposit/${username}/${groupID}/${groups[0].name}`)}>Deposit</button>
                 <button className="button" onClick={() => navigate(`/Withdraw/${username}/${groupID}/${groups[0].name}`)}>Withdraw</button>
                 <button className="button finance-management" onClick={() => navigate(`../GroupManagement/${username}`)}>
-                    back
+                    Back
                 </button>
             </div>
             <div className="financial-summary">
