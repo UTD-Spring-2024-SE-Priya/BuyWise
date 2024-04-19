@@ -9,6 +9,7 @@ import CreateGroup from './CreateGroup';
 import LoginForm from './LoginForm';
 import Edit from './Edit'; 
 import Settings from './Settings';
+import Reset from './Reset';
 
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/GroupManagement/:username/create" element={<CreateGroup />} />
         <Route path="/edit" element={<Edit />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/Reset" element={<Reset />} />
         {/* Route for the Line Chart. Adjust the path as needed */}
         
         {/* ... other routes ... */}

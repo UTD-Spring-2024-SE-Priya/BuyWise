@@ -187,7 +187,9 @@ function LoginForm() {
                                 <div className="signup-link">
                                     Don't have account? <Link to="#" onClick={toggleForm}>Create account</Link>
                                 </div>
-
+                                <button  onClick={() => navigate('./Reset')}>
+                                    Reset Password
+                                </button>
                             </>
                         ) : (
                             <>
