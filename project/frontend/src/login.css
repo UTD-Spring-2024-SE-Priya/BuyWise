@@ -6,12 +6,12 @@
   box-sizing: border-box;
   font-family: 'Raleway', sans-serif;
 }
-html,body{
-  display: grid;
-  height: 100%;
-  width: 100%;
-  place-items: center;
-  background: radial-gradient(circle at 18.7% 37.8%, rgb(250, 250, 250) 0%, rgb(225, 234, 238) 90%);
+html, body {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    place-items: center;
+    background-image: radial-gradient(circle, #30cfd0, #00a4ca, #0076bc, #00469c, #330867);
 }
 ::selection{
   background: #375657;
