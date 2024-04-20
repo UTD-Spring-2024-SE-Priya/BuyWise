@@ -48,6 +48,7 @@ function LoginForm() {
                 console.log('success');
                 navigate(`/GroupManagement/${username}`);  
             } catch (error) {
+                alert('Log in failed: ' + error.message);
                 console.log(error);
             }
         } else {
@@ -56,6 +57,7 @@ function LoginForm() {
                 console.log('success');
                 toggleForm();
             } catch (error) {
+                alert('Sign up failed: ' + error.message);
                 console.log(error);
             }
         }
@@ -120,9 +122,9 @@ function LoginForm() {
             throw new Error('Password cannot be empty');
         }
 
-        const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,14}$/;
+        const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
         if (!passwordPattern.test(password)) {
-            throw new Error('Password must be 8-14 characters, contain at least one number, one uppercase letter, one lowercase letter, one special character, and no spaces');
+            throw new Error('Password must be 8+ characters, contain at least one number, one uppercase letter, one lowercase letter, one special character, and no spaces');
         }
 
         if (password !== confirmPassword) {
@@ -185,7 +187,9 @@ function LoginForm() {
                                 <div className="signup-link">
                                     Don't have account? <Link to="#" onClick={toggleForm}>Create account</Link>
                                 </div>
-
+                                <button  onClick={() => navigate('./Reset')}>
+                                    Reset Password
+                                </button>
                             </>
                         ) : (
                             <>

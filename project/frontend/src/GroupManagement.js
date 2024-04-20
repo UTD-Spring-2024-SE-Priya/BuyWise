@@ -33,15 +33,15 @@ const FinancialDashboard = () => {
         <div className="dashboard-container">
             <nav className="header-section">
                 <div className="account-details">
-                    <h1>{username}</h1>
+                    <h1>User: {username}</h1>
                 </div>
             </nav>
-            <button className="group-button">My groups</button>
+            <h2 className="header">My Groups</h2>
             <main>
                 <div className="group-list">
                     {/* Map over the groups array to render each group as a panel */}
                     {groups.map((group) => (
-                        <button key={group._id} className="group-item" onClick={() => navigate(`../home/${username}/${group._id}/${group.balance}/${group.name}/${group.users.replace(/,/g, ', ')}`)}>
+                        <button key={group._id} className="group-item" onClick={() => navigate(`../home/${username}/${group._id}`)}>
                             <h3>{group.name}</h3>
                             <p>Group Balance: ${group.balance}</p>
                             <h5>Users : {group.users.replace(/,/g, ', ')}</h5>

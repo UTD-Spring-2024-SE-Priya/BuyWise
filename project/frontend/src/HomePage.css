@@ -63,6 +63,8 @@
   margin-bottom: 1rem;
 }
 
+
+
 .financial-item {
   background: #f0f0f0;
   padding: 1rem;
@@ -79,6 +81,10 @@
 
 .financial-item.expenses {
   background-color: #ffe0e0; /* Light red background */
+}
+
+.financial-item.transaction {
+  background-color: #e2ffe0; /* Light red background */
 }
 
 .chart-container {

@@ -3,7 +3,6 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: #ecf0f3; /* Assuming a light grey background */
   }
   
   .withdraw-event {
@@ -30,13 +29,14 @@
     color: #333;
     margin-bottom: 5px;
   }
-  
-  .form-group input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+    }
   
   .withdraw-button {
     width: 100%;
