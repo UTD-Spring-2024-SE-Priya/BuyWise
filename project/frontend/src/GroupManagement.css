@@ -5,26 +5,24 @@
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-<<<<<<< HEAD
   }
   
   .group-list {
     margin-bottom: 20px;
   }
-=======
-}
+
+
 
 .group-list {
     margin-bottom: 10px;
 }
->>>>>>> Xinlong
 
 .group-item {
     background: #F5F5F5;
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 5px;
-<<<<<<< HEAD
+ 
     width: 600px;
 }
   
@@ -48,9 +46,7 @@
   .back-btn {
     background: #CCCCCC;
   }
-=======
-    width: 100%;
-}
+    
 
     .group-item h3 {
         margin-top: 0;
@@ -67,18 +63,14 @@
     border-radius: 5px;
     cursor: pointer;
 }
->>>>>>> Xinlong
 
 .account-details {
     justify-content: center;
     width: 600px;
-<<<<<<< HEAD
 
 }
-=======
-}
+
 
 .header{
     text-align: center;
 }
->>>>>>> Xinlong
