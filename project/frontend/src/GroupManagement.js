@@ -53,7 +53,7 @@ const FinancialDashboard = () => {
                 <button className="create-group-button" onClick={() => navigate(`./create`)}>Create Group</button>
             </footer>
             <nav className="navigation">
-                <button className="back-button"onClick={() => navigate(-1)}>Back</button>
+                <button className="back-button"onClick={() => navigate(`../../`)}>Back</button>
             </nav>
         </div>
     );
