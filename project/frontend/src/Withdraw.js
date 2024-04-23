@@ -76,7 +76,7 @@ function Withdraw() {
     console.log(username);
 
 
-    let transactionToAdd = date + " : " + username +  " deposited " + amount + " : " + description;
+    let transactionToAdd = date + " : " + username +  " withdrew " + amount + " : " + description;
 
   
     try {
