@@ -5,7 +5,7 @@ import './HomePage.css'
 const HomePage = () => {
   const [groups, setGroups] = useState([]); // State to store groups data
   const { username , groupID } = useParams(); // Get username from URL params
-  const [data , setData] = useState(null);
+  const [data , setData] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
       const fetchData = async () => {

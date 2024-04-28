@@ -53,8 +53,11 @@ function Deposit() {
         throw new Error("Failed to fetch group data");
       }
       const json = await response.json();
-      const initialBalance = parseFloat(json.groups[0].balance);
-      const updateResponse = await fetch(`http://localhost:5050/update/balance/${json.groups[0]._id}`, {
+      const { groups } = json;
+      const index = await groups.findIndex(group => group._id === groupID);
+
+      const initialBalance = parseFloat(json.groups[index].balance);
+      const updateResponse = await fetch(`http://localhost:5050/update/balance/${json.groups[index]._id}`, {
           method: "PATCH",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify({ "balance": initialBalance + parseFloat(depositAmount) })

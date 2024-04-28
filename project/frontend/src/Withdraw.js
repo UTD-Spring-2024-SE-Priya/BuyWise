@@ -46,13 +46,16 @@ function Withdraw() {
       throw new Error("Failed to fetch group data");
     }
     const json = await response.json();
-    const initialBalance = parseFloat(json.groups[0].balance);
+    const { groups } = json;
+
+    const index = await groups.findIndex(group => group._id === groupID);
+    const initialBalance = parseFloat(json.groups[index].balance);
 
     if (initialBalance < parseFloat(withdrawAmount)) {
       throw new Error("Not enough balance in your account");
     }
 
-    const updateResponse = await fetch(`http://localhost:5050/update/balance/${json.groups[0]._id}`, {
+    const updateResponse = await fetch(`http://localhost:5050/update/balance/${json.groups[index]._id}`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json"
