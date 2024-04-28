@@ -15,6 +15,11 @@ function Deposit() {
 
   const handleDeposit = async e => {
     e.preventDefault();
+    const depositAmount = amountRef.current.value;
+    if (!depositAmount || depositAmount <= 0) {
+      alert("Please enter a valid amount greater than zero.");
+      return;
+    }
     try {
       await deposit(amountRef.current.value, groupID);
       await transaction(dateValue , amountRef.current.value , description , groupID , username);
@@ -41,6 +46,7 @@ function Deposit() {
     if (depositAmount < 0) {
       throw new Error("Value cannot be negative");
     }
+
     try {  
       const response = await fetch(`http://localhost:5050/find/user/group/${groupID}`);
       if (!response.ok) {
